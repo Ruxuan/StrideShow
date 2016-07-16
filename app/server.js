@@ -5,8 +5,6 @@ var _express = require('express');
 var _app     = _express();
 	// Static file location
 	_app.use(_express.static(path.join(__dirname, '/public')));
-	// Cookie Parser
-	_app.use(cookieParser());
 	// Data
 	_app.set('views', [ path.join(__dirname, '/templates/views'),
 						path.join(__dirname, '/templates/layouts'),
@@ -27,6 +25,9 @@ var _bodyParser = require('body-parser');
 	// Body parser
 	_app.use(_bodyParser.json());
 	_app.use(_bodyParser.urlencoded({extended: true}));
+
+var _cookieParser = require('cookie-parser');
+	_app.use(_cookieParser());
 
 // ********************************************************
 // Nunjucks template configuration
