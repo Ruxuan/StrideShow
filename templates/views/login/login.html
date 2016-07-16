@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	Login | StrideShow
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="/styles/login.css" />
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+	<section id="login">
+		<div class="loginWrapper">
+			<div class="loginForm">
+				<h2 class="loginHeader">
+					Welcome to StrideShow
+				</h2>
+				<div class="authenticationBox">
+					<div class="boxWrapper">
+						<div class="main-auth">
+							<form>
+								<label>Email</label>
+								<div class="login-field">
+									<input name="uid" type="email" placeholder="Email"></input>
+								</div>
+								<label>Password</label>
+								<div class="login-field">
+									<input name="password" type="password" placeholder="Password"></input>
+								</div>
+								<button type="submit" id="btn-login" class="btn btn-main-login">Login</button>
+							</form>
+						</div>
+						<div class="social-auth">
+							<div class="horizontalDivider"></div>
+							<button id="fb-login" class="btn btn-fb-login">Log in with Facebook</button>
+							<div class="horizontalDivider"></div>
+							<button id="linkedin-login" class="btn btn-linkedin-login">Log in with Linkedin</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+{% endblock %}

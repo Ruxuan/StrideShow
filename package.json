@@ -1,0 +1,36 @@
+{
+  "name": "strideshow",
+  "version": "1.0.0",
+  "description": "An online slideshow presentation platform with mobile remote integration",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "json-packager": "git+https://github.com/Ruxuan/json-packager.git",
+    "node-sass": "^3.8.0",
+    "nunjucks": "^2.4.2",
+    "socket.io": "^1.4.6"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.12.5",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-develop-server": "^0.5.1",
+    "gulp-jshint": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.1",
+    "gulp-uglify": "^1.5.3",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "slideshow",
+    "presentation",
+    "mobile"
+  ],
+  "author": "Ruxuan Li",
+  "license": "ISC"
+}

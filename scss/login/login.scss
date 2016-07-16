@@ -1,0 +1,45 @@
+#login {
+	margin: 50px 80px 0 80px;
+	padding: 0 500px 100px 20px;
+
+	.loginWrapper {
+		padding: 10px;
+	}
+
+
+	.loginHeader {
+		font-weight: 600;
+	}
+
+	.loginForm {
+
+		.btn {
+			border-radius: 3px;
+			border: 0;
+		}
+
+		.main-auth {
+
+
+			.login-field {
+				margin-bottom: 20px;
+			}
+
+			.btn-main-login {
+				background-color: #ff8000;
+			}
+		}
+
+		.social-auth {
+
+			.btn-fb-login {
+				background-color: #3b5998;
+			}
+
+			.btn-linkedin-login {
+				background-color: #0976b4;
+			}
+
+		}
+	}
+}

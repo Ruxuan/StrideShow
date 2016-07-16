@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<link rel='icon' type='image/png' href='/images/fav/favicon.png' sizes='32x32' />-->
+
+		<meta name="description" content="StrideShow is an online presentation platform">
+		<meta name="application-name" content="StrideShow Inc.">
+
+		{# Default CSS Sheets #}
+		<link rel="stylesheet" type="text/css" href="/styles/main.css" />
+
+		{# JQuery #}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
+		{# Bootstrap JS #}
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		{# Font Awesome #}
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" />
+
+		{# Page specific stylesheet #}
+		{% block css %}{% endblock %}
+
+		{# Page specific javascript #}
+		{% block js %}{% endblock %}
+
+		{# Add any other header tags #}
+
+
+		<title>{% block title %}{% endblock %}</title>
+	</head>
+
+	<body id="StrideShow">
+
+		{# Header #}
+		{% include "./default/header.html" %}
+
+		{# Body #}
+		<div id='body'>
+			{% block content %}{% endblock %}
+		</div>
+
+		{# Footer #}
+		{% include "./default/footer.html" %}
+	</body>
+</html>

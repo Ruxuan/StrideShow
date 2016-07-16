@@ -1,0 +1,18 @@
+#login {
+  margin: 50px 80px 0 80px;
+  padding: 0 500px 100px 20px; }
+  #login .loginWrapper {
+    padding: 10px; }
+  #login .loginHeader {
+    font-weight: 600; }
+  #login .loginForm .btn {
+    border-radius: 3px;
+    border: 0; }
+  #login .loginForm .main-auth .login-field {
+    margin-bottom: 20px; }
+  #login .loginForm .main-auth .btn-main-login {
+    background-color: #ff8000; }
+  #login .loginForm .social-auth .btn-fb-login {
+    background-color: #3b5998; }
+  #login .loginForm .social-auth .btn-linkedin-login {
+    background-color: #0976b4; }
