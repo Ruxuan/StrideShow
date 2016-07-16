@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.15.1",
+    "cookie-parser": "^1.4.3",
     "express": "^4.13.4",
     "json-packager": "git+https://github.com/Ruxuan/json-packager.git",
     "node-sass": "^3.8.0",
