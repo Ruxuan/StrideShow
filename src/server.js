@@ -24,7 +24,7 @@ require('./socket/sockets.js')(_app, _io);
 var _bodyParser = require('body-parser');
 	// Body parser
 	_app.use(_bodyParser.json());
-	_app.use(_bodyParser.urlencoded({extended: true}));
+	_app.use(_bodyParser.urlencoded({ extended: true }));
 
 var _cookieParser = require('cookie-parser');
 	_app.use(_cookieParser());
@@ -45,7 +45,14 @@ var _nunjucks = require('nunjucks');
 
 // ********************************************************
 // TODO: Authentication
-// See reactstarterkit
+// See reactstarterkit for passport js
+
+// expressJWT reactstarterkit
+//*********************************************************
+// TODO: the following stuff
+// graphQL ? reactstarterkit
+// Register server-side rendering middleware reactstarterkit
+// Error handling from reactstarterkit
 
 //*********************************************************
 // Pass information
