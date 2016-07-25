@@ -22,9 +22,6 @@
 		{# Page specific stylesheet #}
 		{% block css %}{% endblock %}
 
-		{# Page specific javascript #}
-		{% block js %}{% endblock %}
-
 		{# Add any other header tags #}
 
 
@@ -43,5 +40,8 @@
 
 		{# Footer #}
 		{% include "./default/footer.html" %}
+
+		{# Page specific javascript #}
+		{% block js %}{% endblock %}
 	</body>
 </html>

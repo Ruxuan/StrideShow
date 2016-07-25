@@ -38,8 +38,8 @@ const config = {
   context: path.resolve(__dirname, '../src'),
 
   output: {
-    path: path.resolve(__dirname, '../build/public/assets'),
-    publicPath: '/assets/',
+    path: path.resolve(__dirname, '../src/public/js'),
+    publicPath: '/js/',
     sourcePrefix: '  ',
   },
 

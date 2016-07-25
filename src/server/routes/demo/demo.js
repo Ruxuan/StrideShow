@@ -12,22 +12,25 @@ var path     = require('path');
 
 // Compile sample presentations into one json file
 var PRESENTATION_FILES = [
-		"dynamic/sample-presentations/global-warming/global-warming.json",
-		"dynamic/sample-presentations/universe/universe.json",
-		"dynamic/sample-presentations/instructions/instructions.json"
+		"data/sample-presentations/global-warming/global-warming.json",
+		"data/sample-presentations/universe/universe.json",
+		"data/sample-presentations/instructions/instructions.json"
 	]
 	.map(pathName => path.resolve(pathName));
 
-var TARGET_DIRECTORY   = path.resolve("dynamic/sample-presentations/sample-presentations.json");
+var TARGET_DIRECTORY   = path.resolve("data/sample-presentations/sample-presentations.json");
 
 // Compile Function
 pJson(PRESENTATION_FILES, TARGET_DIRECTORY);
 
 //*************************************************
 // Paths
+var React = require('react');
+var ReactDOMServer = require('react-dom/server');
 
 _router.get('/', function(req, res) {
-	res.render('demo/demo');
+	var sample = fs.readFileSync(TARGET_DIRECTORY, "utf-8");
+	res.render('demo/demo', { initialState: sample });
 });
 
 _router.get('/sample-presentations', function(req, res) {
