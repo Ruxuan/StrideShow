@@ -29,6 +29,12 @@ module.exports = {
           presets:["es2015", "react", "stage-0"],
           plugins:["transform-runtime"]
         }
+      },
+      // CSS
+      {
+        test: /\.scss$/,
+        loaders: ['style','css','sass'],
+        include: path.join(__dirname, '../src/app'),
       }
     ]
   }
