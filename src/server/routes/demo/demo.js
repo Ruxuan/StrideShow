@@ -12,55 +12,48 @@ var path     = require('path');
 
 // Compile sample presentations into one json file
 var PRESENTATION_FILES = [
-		"data/sample-presentations/global-warming/global-warming.json",
 		"data/sample-presentations/universe/universe.json",
-		"data/sample-presentations/instructions/instructions.json"
-	]
-	.map(pathName => path.resolve(pathName));
+		"data/sample-presentations/global-warming/global-warming.json",
+		"data/sample-presentations/instructions/instructions.json",
+		"data/sample-presentations/impress-intro/impress-intro.json"
+	].map(pathName => path.resolve(pathName));
 
 var TARGET_DIRECTORY   = path.resolve("data/sample-presentations/sample-presentations.json");
 
-// Compile Function
+// Compile presentaitons Function
 pJson(PRESENTATION_FILES, TARGET_DIRECTORY);
 
 //*************************************************
 // Paths
-var React = require('react');
-var ReactDOMServer = require('react-dom/server');
+//var React = require('react');
+//var ReactDOMServer = require('react-dom/server');
 
 _router.get('/', function(req, res) {
 	var sample = fs.readFileSync(TARGET_DIRECTORY, "utf-8");
-	res.render('demo/demo', { initialState: sample });
-});
 
-_router.get('/sample-presentations', function(req, res) {
-	var sample = JSON.parse(fs.readFileSync(TARGET_DIRECTORY, "utf-8"));
+	// Compute ui state
+	var json = JSON.parse(sample);
+	var UIprojectGrid = json.map((element, index) => {
+		return {
+			id: element.meta_data.id,
+			selected: false
+		}
+	});
 
-	res.set('Content-Type', 'text/json');
-	res.json(sample);
-});
+	var uiState = JSON.stringify({
+		UIprojectGrid: UIprojectGrid,
+		UIactiveProject: 'deselect'
+	});
 
-_router.get('/instructions', function(req, res) {
-	var sample = JSON.parse(fs.readFileSync(TARGET_DIRECTORY, "utf-8"));
+	// Put together render data
+	var renderData = {
+		initialState: sample,
+		uiState: uiState,
+		devServer: 'http://abcdeghi.ngrok.io/demo'
+	};
 
-	res.set('Content-Type', 'text/html');
-	res.render('impress.html', sample[2]);
-});
-
-//***********************************************
-
-_router.get('/global-warming', function(req, res) {
-	var sample = JSON.parse(fs.readFileSync(TARGET_DIRECTORY, "utf-8"));
-
-	res.set('Content-Type', 'text/html');
-	res.render('impress.html', sample[0]);
-});
-
-_router.get('/universe', function(req, res) {
-	var sample = JSON.parse(fs.readFileSync(TARGET_DIRECTORY, "utf-8"));
-
-	res.set('Content-Type', 'text/html');
-	res.render('impress.html', sample[1]);
+	// Render
+	res.render('demo/demo', renderData);
 });
 
 //***********************************************
