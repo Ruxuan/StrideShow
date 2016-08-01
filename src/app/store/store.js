@@ -5,7 +5,11 @@ import { browserHistory } from 'react-router';
 // Reducers
 import rootReducer from '../reducers/index';
 
-const defaultState = { presentations: window.__INITIAL_STATE__ };
+// Create Store
+const defaultState = {
+  projects : window.strideshow.__INITIAL_STATE__,
+  uiState:   window.strideshow.__UI_STATE__
+};
 
 const enhancers = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f

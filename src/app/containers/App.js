@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../actions/dashboardActions';
+import * as projectActions from '../actions/projectActions';
+import * as socketActions from '../actions/socketActions';
 
-class Main extends React.Component {
+class App extends React.Component {
   render() {
     return (
-      <div>
+      <div className="container-fluid">
         <h1>
           <Link to="/demo">StrideShow Dashboard</Link>
         </h1>
@@ -22,12 +23,15 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(actions, dispatch);
+  return {
+    projectActions: bindActionCreators(projectActions, dispatch),
+    socketActions: bindActionCreators(socketActions, dispatch)
+  }
 };
 
-const App = connect(
+App = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Main);
+)(App);
 
 export default App;

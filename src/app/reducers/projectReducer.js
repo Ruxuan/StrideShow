@@ -1,7 +1,6 @@
 import * as actions from '../constants/actionNames';
-import { List, Map } from 'immutable';
 
-const presentations = (state=List(), action) => {
+const projectReducer = (state=[], action) => {
   switch(action.types) {
 
     default:
@@ -9,4 +8,4 @@ const presentations = (state=List(), action) => {
   }
 }
 
-export default presentations;
+export default projectReducer;

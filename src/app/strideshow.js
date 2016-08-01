@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 
 import App from './containers/App';
 import Dashboard from './containers/dashboard/Dashboard';
+import Slideshow from './containers/slideshow/Slideshow';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
@@ -13,7 +14,8 @@ const router = (
   <Provider store={store}>
    <Router history={history}>
      <Route path="/demo" component={ App }>
-       <IndexRoute component={ Dashboard }></IndexRoute>
+       <IndexRoute component={ Dashboard } />
+       <Route path="/demo/slideshow/:index" component={ Slideshow } />
      </Route>
    </Router>
   </Provider>
@@ -22,5 +24,5 @@ const router = (
 //router,
 render(
   router,
-  document.getElementById('dashboard')
+  document.getElementById('demo')
 )

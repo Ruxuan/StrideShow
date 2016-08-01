@@ -1,29 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router';
 
-import ProjectMenu from './ProjectMenu';
-import Menu        from './Menu';
-import ProjectGrid from './ProjectGrid';
-import MobileWidget from '../mobileWidget/MobileWidget';
+import UserMenu from '../user/UserMenu';
+import DashboardMain from './DashboardMain';
+
+import s from './dashboard.scss';
 
 class Dashboard extends React.Component {
   render() {
     return (
       <div id='dashboard'>
-        <div className='top-menu-container'>
-          <ProjectMenu />
-        </div>
-        <div>
-          <div className='side-menu-container'>
-            <Menu />
-          </div>
-          <div className='grid-container'>
-            <ProjectGrid {...this.props} />
+        <div className='row user-panel'>
+          <div className='col-sm-12'>
+            <div className='user-menu-container'>
+              <UserMenu />
+            </div>
           </div>
         </div>
-        <div>
-          <MobileWidget />
-        </div>
+      <DashboardMain {...this.props} />
       </div>
     )
   }

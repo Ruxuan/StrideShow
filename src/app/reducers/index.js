@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import presentations from './presentations';
+import projectReducer from './projectReducer';
+import uiReducer from './uiReducer';
 
 
 const rootReducer = combineReducers({
-  presentations,
+  projects: projectReducer,
+  uiState: uiReducer,
   routing: routerReducer
 });
 

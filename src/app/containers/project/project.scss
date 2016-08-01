@@ -1,0 +1,29 @@
+.project-grid {
+  flex: 1 auto;
+
+  ul {
+    padding-left: 0px;
+
+    li {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 30px;
+      margin-top: 30px;
+    }
+  }
+
+  .project-box {
+    height: 150px;
+    width: 150px;
+    border: 2px solid black;
+  }
+
+  .highlight {
+    border: 2px solid white;
+    outline: none;
+  }
+}
+
+.project-menu {
+  border: 1px solid black;
+}

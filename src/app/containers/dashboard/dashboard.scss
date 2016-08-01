@@ -1,0 +1,34 @@
+#dashboard {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 600px;
+
+  .user-panel {
+    border: 1px solid black;
+  }
+
+  .dashboard-main {
+    display: flex;
+    flex: 1 auto;
+
+    .side-menu-control-room {
+      border: 1px solid black;
+    }
+
+    .project-control-room {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid black;
+
+      .grid-container {
+        display: flex;
+        flex: 1 auto;
+      }
+    }
+
+    .mobile-widget-container {
+      border: 1px solid black;
+    }
+  }
+}
