@@ -1,4 +1,4 @@
-import * as actions from '../constants/actionNames';
+import * as names from '../constants/actionNames';
 
 const projectReducer = (state=[], action) => {
   switch(action.types) {
@@ -6,6 +6,6 @@ const projectReducer = (state=[], action) => {
     default:
       return state;
   }
-}
+};
 
 export default projectReducer;
