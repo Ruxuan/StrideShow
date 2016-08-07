@@ -1,9 +1,11 @@
 import React from 'react';
-import DeviceInfo from './DeviceInfo';
-import DeviceStatus from './DeviceStatus';
+import InternetStatus from './InternetStatus';
+import MobileStatus from './MobileStatus';
+import SocketStatus from './SocketStatus';
 import s from './mobile-widget.scss';
 
 class MobileWidget extends React.Component {
+  // TODO: rename to NetworkWidget
 
   handleOnClick(e) {
     e.stopPropagation();
@@ -12,9 +14,17 @@ class MobileWidget extends React.Component {
   render() {
     return (
       <div className="mobile-widget" onClick={this.handleOnClick}>
-        Mobile Widget
-        <DeviceInfo />
-        <DeviceStatus />
+        <div className="row">
+          <div className="col-sm-4">
+            <MobileStatus mobileState={this.props.networkState.mobile} />
+          </div>
+          <div className="col-sm-4">
+            <SocketStatus socketState={this.props.networkState.socket} />
+          </div>
+          <div className="col-sm-4">
+            <InternetStatus internetState={this.props.networkState.internet} />
+          </div>
+        </div>
       </div>
     )
   }
