@@ -17,43 +17,53 @@ var PRESENTATION_FILES = [
 		"data/sample-presentations/instructions/instructions.json",
 		"data/sample-presentations/impress-intro/impress-intro.json"
 	].map(pathName => path.resolve(pathName));
-
 var TARGET_DIRECTORY   = path.resolve("data/sample-presentations/sample-presentations.json");
-
-// Compile presentaitons Function
+// Compile presentations Function
 pJson(PRESENTATION_FILES, TARGET_DIRECTORY);
 
+// Network state
+var NETWORK_STATE_DIR = path.resolve("data/networkState.json");
+
+// Impress state
+var IMPRESS_STATE_DIR = path.resolve("data/impressState.json");
 //*************************************************
 // Paths
 //var React = require('react');
 //var ReactDOMServer = require('react-dom/server');
 
-_router.get('/', function(req, res) {
-	var sample = fs.readFileSync(TARGET_DIRECTORY, "utf-8");
+_router.get('/*', function(req, res) {
+	var sample = JSON.parse(fs.readFileSync(TARGET_DIRECTORY, "utf-8"));
 
 	// Compute ui state
-	var json = JSON.parse(sample);
-	var UIprojectGrid = json.map((element, index) => {
+	var UIprojectGrid = sample.map((element, index) => {
 		return {
 			id: element.meta_data.id,
 			selected: false
 		}
 	});
-
-	var uiState = JSON.stringify({
+	var uiState = {
 		UIprojectGrid: UIprojectGrid,
 		UIactiveProject: 'deselect'
-	});
-
-	// Put together render data
-	var renderData = {
-		initialState: sample,
-		uiState: uiState,
-		devServer: 'http://abcdeghi.ngrok.io/demo'
 	};
 
+	// Get network state
+	var networkState = JSON.parse(fs.readFileSync(NETWORK_STATE_DIR, "utf-8"));
+  // Get impress state
+  var impressState = JSON.parse(fs.readFileSync(IMPRESS_STATE_DIR, "utf-8"));
+
+	// Put together render data
+	var renderData = JSON.stringify({
+		projects: sample,
+		uiState: uiState,
+		networkState: networkState,
+    impressState: impressState
+	});
+
 	// Render
-	res.render('demo/demo', renderData);
+	res.render('demo/demo', {
+		data: renderData,
+	 	devServer: 'http://1bccb136.ngrok.io/demo'
+	});
 });
 
 //***********************************************
