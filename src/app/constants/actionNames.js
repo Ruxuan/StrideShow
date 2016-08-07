@@ -1,9 +1,10 @@
-export const NEW_PROJECT      = 'NEW_PROJECT';
-export const DELETE_PROJECT   = 'DELETE_PROJECT';
-export const EDIT_PROJECT     = 'EDIT_PROJECT';
-export const PLAY_PROJECT     = 'PLAY_PROJECT';
-export const SELECT_PROJECT   = 'SELECT_PROJECT';
-export const SHARE_PROJECT    = 'SHARE_PROJECT';
+// TODO: rename the constants below to PROJECT_*
+export const NEW_PROJECT    = 'NEW_PROJECT';
+export const DELETE_PROJECT = 'DELETE_PROJECT';
+export const EDIT_PROJECT   = 'EDIT_PROJECT';
+export const PLAY_PROJECT   = 'PLAY_PROJECT';
+export const SELECT_PROJECT = 'SELECT_PROJECT';
+export const SHARE_PROJECT  = 'SHARE_PROJECT';
 
 export const SOCKET_CONNECT          = 'SOCKET_CONNECT';
 export const SOCKET_DISCONNECT       = 'SOCKET_DISCONNECT';
@@ -12,7 +13,21 @@ export const SOCKET_RECONNECTING     = 'SOCKET_RECONNECTING';
 export const SOCKET_RECONNECT_ERROR  = 'SOCKET_RECONNECT_ERROR';
 export const SOCKET_RECONNECT_FAILED = 'SOCKET_RECONNECT_FAILED';
 export const SOCKET_ERROR            = 'SOCKET_ERROR';
+export const SOCKET_RECEIVE_ROOM_KEY = 'SOCKET_RECEIVE_ROOM_KEY';
 
-export const IMPRESS_NEXT = 'IMPRESS_NEXT';
-export const IMPRESS_PREV = 'IMPRESS_PREV';
-export const IMPRESS_GOTO = 'IMPRESS_GOTO';
+export const MOBILE_CONNECT        = 'MOBILE_CONNECT';
+export const MOBILE_DISCONNECT     = 'MOBILE_DISCONNECT';
+export const MOBILE_ACTIVE_PROJECT = 'MOBILE_ACTIVE_PROJECT';
+export const MOBILE_DEVICE_INFO    = 'MOBILE_DEVICE_INFO';
+
+export const INTERNET_UP           = 'INTERNET_UP';
+export const INTERNET_DOWN         = 'INTERNET_DOWN';
+export const INTERNET_CONFIRM_UP   = 'INTERNET_CONFIRM_UP';
+export const INTERNET_CONFIRM_DOWN = 'INTERNET_CONFIRM_DOWN';
+export const INTERNET_CHECKING     = 'INTERNET_CHECKING';
+
+export const IMPRESS_INIT  = 'IMPRESS_INIT';
+export const IMPRESS_NEXT  = 'IMPRESS_NEXT';
+export const IMPRESS_PREV  = 'IMPRESS_PREV';
+export const IMPRESS_GOTO  = 'IMPRESS_GOTO';
+export const IMPRESS_RESET = 'IMPRESS_RESET';
