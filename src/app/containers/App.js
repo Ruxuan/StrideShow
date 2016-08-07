@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import networkActions from '../actions/networkActions/networkActions';
+import * as impressActions from '../actions/impressActions';
 import * as projectActions from '../actions/projectActions';
-import * as socketActions from '../actions/socketActions';
 
 class App extends React.Component {
   render() {
@@ -25,7 +26,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     projectActions: bindActionCreators(projectActions, dispatch),
-    socketActions: bindActionCreators(socketActions, dispatch)
+    networkActions: {
+      socketActions:   bindActionCreators(networkActions.socketActions, dispatch),
+      mobileActions:   bindActionCreators(networkActions.mobileActions, dispatch),
+      internetActions: bindActionCreators(networkActions.internetActions, dispatch)
+    },
+    impressActions: bindActionCreators(impressActions, dispatch)
   }
 };
 
