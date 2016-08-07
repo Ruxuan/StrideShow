@@ -11,13 +11,17 @@
     "express": "^4.13.4",
     "json-packager": "git+https://github.com/Ruxuan/json-packager.git",
     "nunjucks": "^2.4.2",
+    "offline-js": "^0.7.18",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",
     "react-router": "^2.6.0",
     "react-router-redux": "^4.0.5",
     "redux": "^3.5.2",
-    "socket.io": "^1.4.6"
+    "redux-thunk": "^2.1.0",
+    "reselect": "^2.5.3",
+    "socket.io": "^1.4.6",
+    "socket.io-client": "^1.4.8"
   },
   "devDependencies": {
     "babel-core": "^6.11.4",
