@@ -30,11 +30,10 @@ class ProjectMenu extends React.Component {
         <div className='row'>
           <div className='col-sm-2'>ProjectMenu</div>
           <div className='col-sm-4'>
-            /Path/to/project {projectTitle ? `/${projectTitle}` : null}
+            /Path/to/project{projectTitle ? `/${projectTitle}` : null}
           </div>
           <div className='col-sm-6'>
-            Options:
-            { projectOptions }
+            Options: { projectOptions }
           </div>
         </div>
       </div>
