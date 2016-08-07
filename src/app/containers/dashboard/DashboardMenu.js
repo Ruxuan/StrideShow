@@ -10,6 +10,7 @@ class DashboardMenu extends React.Component {
         <div>Shared projects</div>
         <div>Starred</div>
         <div>Trash</div>
+        <div>FolderSpace</div>
       </div>
     )
   }

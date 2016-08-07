@@ -15,6 +15,7 @@ class DashboardMain extends React.Component {
     selectProject('deselect');
   }
 
+  // TODO: use reselect selectors to display projects on the grid
   render() {
     return (
       <div className='row dashboard-main' onClick={this.handleOnMainClick}>
@@ -37,7 +38,10 @@ class DashboardMain extends React.Component {
               projectActions={this.props.projectActions} />
           </div>
           <div className='mobile-widget-container'>
-            <MobileWidget />
+            <MobileWidget
+              networkState={this.props.networkState}
+              networkActions={this.props.networkActions}
+            />
           </div>
         </div>
       </div>
