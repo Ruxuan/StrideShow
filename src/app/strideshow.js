@@ -19,10 +19,10 @@ const router = (
      </Route>
    </Router>
   </Provider>
-)
+);
 
 //router,
 render(
   router,
   document.getElementById('demo')
-)
+);
