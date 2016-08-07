@@ -1,0 +1,21 @@
+{
+  "socket": {
+    "status": "disconnected",
+    "attempt": null,
+    "error_msg": null,
+    "room": null
+  },
+  "mobile": {
+    "status": "disconnected",
+    "error_msg": null,
+    "mobileActiveProject": null,
+    "mobileDeviceInfo": {
+      "OS": null,
+      "model": null,
+      "owner": null
+    }
+  },
+  "internet": {
+    "status": "disconnected"
+  }
+}
