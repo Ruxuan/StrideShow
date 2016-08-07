@@ -9,14 +9,13 @@
 {% endblock %}
 
 {% block js %}
+  <script type="text/javascript" src="/js/impress.js"></script>
 	<script>
 		window.strideshow = {};
-		window.strideshow.__INITIAL_STATE__ = {{ initialState | safe }};
-		window.strideshow.__UI_STATE__      = {{ uiState | safe }};
-		window.strideshow.__DEV_SERVER__    = "{{ devServer }}";
+		window.strideshow.__INITIAL_STATE__ = {{ data | safe }};
+		window.strideshow.devServer = "{{ devServer | safe }}";
 	</script>
 	<script src='/bundle.js'></script>
-	<script type="text/javascript" src="/js/impress.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -45,30 +44,6 @@
 			</div>
 			<div class="instr-body">
 				Input the given number into the app
-			</div>
-		</div>
-	</section>
-	<section>
-		<div class="demontrations">
-			<div class="demo-section">
-				<a href="/demo/universe">
-					Universe Presentation
-				</a>
-			</div>
-			<div class="demo-section">
-				<a href="/demo/global-warming">
-					Global Warming Presentation
-				</a>
-			</div>
-			<div class="demo-section">
-				<a href="/demo/quantum-physics-presentation-demo">
-					Quantum Physics Presentation
-				</a>
-			</div>
-			<div class="demo-section">
-				<a href="/demo/autonomous-car-presentation-demo">
-					Comic Book
-				</a>
 			</div>
 		</div>
 	</section>

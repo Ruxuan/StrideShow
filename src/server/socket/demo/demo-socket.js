@@ -25,7 +25,7 @@ function randomInt() {
 	return Math.floor(Math.random() * (high - low + 1) + low);
 }
 
-function randomRoomKey () {
+function randomRoomKey() {
 	// Checks if we reached full connection capacity
 	if (Object.keys(guestSockets).length > (high - low + 1)) {
 		// Reached full connection capacity, return -1
@@ -50,7 +50,7 @@ function randomRoomKey () {
 			return -2;
 		}
 	}
-	
+
 	// Return unique key
 	return randKey;
 }
@@ -123,7 +123,7 @@ module.exports = function(app, io) {
 		});
 
 		socket.on('goto', function(data) {
-			// 
+			//
 			//socket.emit('goto', data);
 		});
 	});
