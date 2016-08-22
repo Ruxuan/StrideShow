@@ -4,8 +4,10 @@ import s from './slideshow.scss';
 class ImpressView extends React.Component {
 
   componentDidMount() {
-    this.props.impressActions.attachSocket();
-    this.props.impressActions.impressInit();
+    var index = this.props.i;
+    var title = this.props.title;
+
+    this.props.impressActions.attachSocket(title, index);
 
     this.api = impress();
     this.api.init();
@@ -13,7 +15,6 @@ class ImpressView extends React.Component {
 
   componentWillUnmount() {
     this.api.close();
-    this.props.impressActions.impressReset();
     this.props.impressActions.detachSocket();
   }
 
@@ -36,12 +37,10 @@ class ImpressView extends React.Component {
         </div>
 
         <div id="impress-container">
-          <div id="impress-wrapper">
             <style>
               { this.props.css }
             </style>
             <div id="impress" dangerouslySetInnerHTML={this.props.dangerousHtml} />
-          </div>
         </div>
       </div>
     )

@@ -16,19 +16,22 @@ class Slideshow extends React.Component {
 
     return (
       <div className="slideshow">
-        <div className="row">
-          <div className="col-sm-6">
+        <div className="info-container">
+          <div className="meta-data">
             <h3>Now playing: { meta_data.title } by { meta_data.author }</h3>
           </div>
-          <div className="col-sm-6">
+          <div className="mobile-widget-container">
             <MobileWidget networkState={this.props.networkState} />
           </div>
         </div>
         <div>
           <ImpressView
-            impressState={this.props.impressState}
-            impressActions={this.props.impressActions}
-            dangerousHtml={dangerous} css={css} />
+            i              = { index }
+            title          = { meta_data.title }
+            impressState   = { this.props.impressState }
+            impressActions = { this.props.impressActions }
+            dangerousHtml  = { dangerous }
+            css            = { css } />
         </div>
       </div>
     )
