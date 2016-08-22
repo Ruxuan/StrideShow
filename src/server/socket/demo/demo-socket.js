@@ -1,6 +1,6 @@
 /*  guestSockets[roomKey] = {
-		'room'   : socket.id,
-		'socket' : socket
+		'room'   : socket.id, // String
+		'socket' : socket     // Socket Object
 	}; */
 var guestSockets = {};
 var low          = 1000;
@@ -103,6 +103,7 @@ module.exports = function(app, io) {
 		// Event Listeners ******************************************
 
 		socket.on('requestRoom', function(data) {
+		  console.log('Room requested');
 			demo.to(socket.id).emit("respondRoom",
 				{
 					room: guestSockets[data.roomKey].room,
