@@ -49,53 +49,62 @@ export function socketInit() {
   }
 }
 
-export const socketConnect = () => {
+export const socketActiveProject = (index) => {
+  return {
+    type: names.SOCKET_ACTIVE_PROJECT,
+    index
+  }
+};
+
+// Module functions ***********************************************************
+
+const socketConnect = () => {
   return {
     type: names.SOCKET_CONNECT
   }
 };
 
-export const socketDisconnect = () => {
+const socketDisconnect = () => {
   return {
     type: names.SOCKET_DISCONNECT
   }
 };
 
-export const socketError = (error_msg) => {
+const socketError = (error_msg) => {
   return {
     type: names.SOCKET_ERROR,
     error_msg: error_msg
   }
 };
 
-export const socketReconnect = (attempt_num) => {
+const socketReconnect = (attempt_num) => {
   return {
     type: names.SOCKET_RECONNECT,
     attempt_num: attempt_num
   }
 };
 
-export const socketReconnecting = (attempt_num) => {
+const socketReconnecting = (attempt_num) => {
   return {
     type: names.SOCKET_RECONNECTING,
     attempt_num: attempt_num
   }
 };
 
-export const socketReconnectError = (error_msg) => {
+const socketReconnectError = (error_msg) => {
   return {
     type: names.SOCKET_RECONNECT_ERROR,
     error_msg: error_msg
   }
 };
 
-export const socketReconnectFailed = () => {
+const socketReconnectFailed = () => {
   return {
     type: names.SOCKET_RECONNECT_FAILED
   }
 };
 
-export const socketReceiveRoomKey = (roomKey) => {
+const socketReceiveRoomKey = (roomKey) => {
   return {
     type: names.SOCKET_RECEIVE_ROOM_KEY,
     room: roomKey

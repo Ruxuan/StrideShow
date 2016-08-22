@@ -1,16 +1,19 @@
 import * as names from '../constants/actionNames';
-import { socket } from './networkActions/socketActions';
+import { socket, socketActiveProject } from './networkActions/socketActions';
 
-export function attachSocket() {
+export function attachSocket(title, index) {
   return (dispatch) => {
 
+    // Dispatches
+    dispatch(socketActiveProject(index));
+    dispatch(impressInit(title));
+
+    // Setup socket listeners
     socket.on('next', function (data) {
-      console.log('impress next');
       dispatch(impressNext());
     });
 
     socket.on('prev', function (data) {
-      console.log('impress prev');
       dispatch(impressPrev());
     });
 
@@ -23,16 +26,26 @@ export function attachSocket() {
 
 export function detachSocket() {
   return (dispatch) => {
+    dispatch(socketActiveProject(null));
+    dispatch(impressReset());
+
+    // Remove socket listeners
     socket.off('next');
     socket.off('prev');
     socket.off('goto');
   }
 }
 
-export const impressInit = (/*slideName*/) => {
+const impressInit = (slideName) => {
   return {
-    type: names.IMPRESS_INIT
-    //slideName: slideName
+    type: names.IMPRESS_INIT,
+    slideName: slideName
+  }
+};
+
+const impressReset = () => {
+  return {
+    type: names.IMPRESS_RESET
   }
 };
 
@@ -53,11 +66,5 @@ export const impressPrev = () => {
 export const impressGoto = () => {
   return {
     type: names.IMPRESS_GOTO
-  }
-};
-
-export const impressReset = () => {
-  return {
-    type: names.IMPRESS_RESET
   }
 };
