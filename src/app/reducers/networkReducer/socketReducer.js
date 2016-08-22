@@ -4,6 +4,7 @@ const socketReducer = (state={}, action) =>  {
   switch (action.type) {
     case names.SOCKET_CONNECT:
     case names.SOCKET_DISCONNECT:
+    case names.SOCKET_RECONNECT_FAILED:
       return {
         ...state,
         status: action.type
@@ -22,15 +23,15 @@ const socketReducer = (state={}, action) =>  {
         status: action.type,
         error_msg: status.error_msg
       };
-    case names.SOCKET_RECONNECT_FAILED:
-      return {
-        ...state,
-        status: action.type
-      };
     case names.SOCKET_RECEIVE_ROOM_KEY:
       return {
         ...state,
         room: action.room
+      };
+    case names.SOCKET_ACTIVE_PROJECT:
+      return {
+        ...state,
+        activeProject: action.index
       };
     default:
       return state;
