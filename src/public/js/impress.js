@@ -90,6 +90,11 @@
         return document.getElementById( id );
     };
 
+    var getContainer = function(container) {
+      container = container || 'impress-container';
+      return document.getElementById(container);
+    };
+
     // `$` returns first element for given CSS `selector` in the `context` of
     // the given element or whole document.
     var $ = function( selector, context ) {
@@ -107,15 +112,8 @@
     // `triggerEvent` builds a custom DOM event with given `eventName` and `detail` data
     // and triggers it on element given as `el`.
     var triggerEvent = function( el, eventName, detail ) {
-        var customEventInit = {
-            'detail': detail,
-            'bubbles': true,
-            'cancelable': true
-        };
-        var event = new CustomEvent( eventName, customEventInit );
-
-        //var event = document.createEvent( "CustomEvent" );
-        //event.initCustomEvent( eventName, true, true, detail );
+        var event = document.createEvent( "CustomEvent" );
+        event.initCustomEvent( eventName, true, true, detail );
         el.dispatchEvent( event );
     };
 
@@ -156,9 +154,9 @@
 
     // `computeWindowScale` counts the scale factor between window size and size
     // defined for the presentation in the config.
-    var computeWindowScale = function( config ) {
-        var hScale = window.innerHeight / config.height,
-            wScale = window.innerWidth / config.width,
+    var computeWindowScale = function( config, container ) {
+        var hScale = container.clientHeight / config.height,
+            wScale = container.clientWidth / config.width,
             scale = hScale > wScale ? wScale : hScale;
 
         if ( config.maxScale && scale > config.maxScale ) {
@@ -177,18 +175,17 @@
 
     var ua = navigator.userAgent.toLowerCase();
     var impressSupported =
+        // Browser should support CSS 3D transtorms
+        ( pfx( "perspective" ) !== null ) &&
 
-                          // Browser should support CSS 3D transtorms
-                           ( pfx( "perspective" ) !== null ) &&
+        // Browser should support `classList` and `dataset` APIs
+        ( body.classList ) &&
+        ( body.dataset ) &&
 
-                          // Browser should support `classList` and `dataset` APIs
-                           ( body.classList ) &&
-                           ( body.dataset ) &&
-
-                          // But some mobile devices need to be blacklisted,
-                          // because their CSS 3D support or hardware is not
-                          // good enough to run impress.js properly, sorry...
-                           ( ua.search( /(iphone)|(ipod)|(android)/ ) === -1 );
+        // But some mobile devices need to be blacklisted,
+        // because their CSS 3D support or hardware is not
+        // good enough to run impress.js properly, sorry...
+        ( ua.search( /(iphone)|(ipod)|(android)/ ) === -1 );
 
     if ( !impressSupported ) {
 
@@ -219,7 +216,9 @@
     };
 
     // It's just an empty function ... and a useless comment.
-    var empty = function() { return false; };
+    var empty = function() {
+      console.log('impress is not supported on this browser');
+    };
 
     // IMPRESS.JS API
 
@@ -237,16 +236,18 @@
                 init: empty,
                 goto: empty,
                 prev: empty,
-                next: empty
+                next: empty,
+                close: empty
             };
         }
 
         rootId = rootId || "impress";
 
         // If given root is already initialized just return the API
-        if ( roots[ "impress-root-" + rootId ] ) {
-            return roots[ "impress-root-" + rootId ];
-        }
+        // Ru: We want to re run when going to another presentation
+        //if ( roots[ "impress-root-" + rootId ] ) {
+        //    return roots[ "impress-root-" + rootId ];
+        //}
 
         // Data of all presentation steps
         var stepsData = {};
@@ -267,8 +268,18 @@
         var windowScale = null;
 
         // Root presentation elements
+        var container = getContainer();
         var root = byId( rootId );
         var canvas = document.createElement( "div" );
+        canvas.id = "canvas";
+        var progressBar = document.createElement( "div" );
+        progressBar.id = "progress-bar";
+        var fullScreenButton = document.createElement( "div" );
+        fullScreenButton.id = "fullscreenbutton";
+        fullScreenButton.className = "fa fa-arrows-alt";
+
+        var impressStyle = document.createElement("style");
+        container.insertBefore(impressStyle, root);
 
         var initialized = false;
 
@@ -296,9 +307,9 @@
         // `onStepLeave` is called whenever the step element is left
         // but the event is triggered only if the step is the same as
         // last entered step.
-        var onStepLeave = function( step ) {
-            if ( lastEntered === step ) {
-                triggerEvent( step, "impress:stepleave" );
+        var onStepLeave = function( currentStep, nextStep ) {
+            if ( lastEntered === currentStep ) {
+                triggerEvent( currentStep, "impress:stepleave", { next : nextStep } );
                 lastEntered = null;
             }
         };
@@ -364,7 +375,7 @@
                 )
             };
 
-            windowScale = computeWindowScale( config );
+            windowScale = computeWindowScale( config, container );
 
             // Wrap steps with "canvas" element
             arrayify( root.childNodes ).forEach( function( el ) {
@@ -375,11 +386,7 @@
             // Set initial styles
             document.documentElement.style.height = "100%";
 
-            css( body, {
-                height: "100%",
-                overflow: "hidden"
-            } );
-
+            // Ru: TODO change root styles for impress container
             var rootStyles = {
                 position: "absolute",
                 transformOrigin: "top left",
@@ -394,6 +401,32 @@
                 transform: perspective( config.perspective / windowScale ) + scale( windowScale )
             } );
             css( canvas, rootStyles );
+
+            // TODO: add support for other browsers
+            impressStyle.sheet.addRule("#impress-container:-webkit-full-screen",
+              "width:100%; height:100%", 0);
+
+            // Style for full screen
+            var fullScreenButtonStyles = {
+              position: "absolute",
+              bottom: "3px",
+              right: "3px",
+            };
+            css(fullScreenButton, fullScreenButtonStyles);
+            container.appendChild(fullScreenButton);
+
+            // Styles for progressBar
+            var progressBarStyles = {
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                height: "3px",
+                width: "3px",
+                background: "orange",
+                transition: "width 1s ease-in-out"
+            };
+            css(progressBar, progressBarStyles);
+            container.appendChild(progressBar);
 
             body.classList.remove( "impress-disabled" );
             body.classList.add( "impress-enabled" );
@@ -411,7 +444,14 @@
 
             initialized = true;
 
-            triggerEvent( root, "impress:init", { api: roots[ "impress-root-" + rootId ] } );
+            triggerEvent( root, "impress:init",
+              {
+                api: roots[ "impress-root-" + rootId ] ,
+                steps: steps,
+                progressBar: progressBar,
+                fullScreenButton: fullScreenButton
+              }
+            );
         };
 
         // `getStep` is a helper function that returns a step element defined by parameter.
@@ -450,7 +490,8 @@
             //
             // If you are reading this and know any better way to handle it, I'll be glad to hear
             // about it!
-            window.scrollTo( 0, 0 );
+            // TODO: bring it back when fullscreened
+            //window.scrollTo( 0, 0 );
 
             var step = stepsData[ "impress-" + el.id ];
 
@@ -491,14 +532,14 @@
             // If the same step is re-selected, force computing window scaling,
             // because it is likely to be caused by window resize
             if ( el === activeStep ) {
-                windowScale = computeWindowScale( config );
+                windowScale = computeWindowScale( config, container );
             }
 
             var targetScale = target.scale * windowScale;
 
             // Trigger leave of currently active element (if it's not the same step again)
             if ( activeStep && activeStep !== el ) {
-                onStepLeave( activeStep );
+                onStepLeave( activeStep, el );
             }
 
             // Now we alter transforms of `root` and `canvas` to trigger transitions.
@@ -591,6 +632,25 @@
             return goto( next );
         };
 
+        // Remove event listeners
+        var close = function() {
+
+          document.documentElement.style.height = null;
+          body.classList.remove( "impress-disabled" );
+          body.classList.remove( "impress-enabled" );
+          body.classList.remove( "impress-on-" + activeStep.id );
+
+          triggerEvent(root, "impress:close");
+        };
+
+        // fullscreen
+        // var fullscreen api function
+        // TODO: Modify changes to body/window to changes to impress wrapper div?
+        /*css( body, {
+            height: "100%",
+            overflow: "hidden"
+        } );*/
+
         // Adding some useful classes to step elements.
         //
         // All the steps that have not been shown yet are given `future` class.
@@ -604,23 +664,102 @@
         // There classes can be used in CSS to style different types of steps.
         // For example the `present` class can be used to trigger some custom
         // animations when step is shown.
-        root.addEventListener( "impress:init", function() {
+        root.addEventListener( "impress:init", function(event) {
+
+            var steps            = event.detail.steps;
+            var progressBar      = event.detail.progressBar;
+            var fullScreenButton = event.detail.fullScreenButton;
+            var stepids          = [];
+
+            for (var i = 0; i < steps.length; i++) {
+              stepids[i] = steps[i].id;
+            }
+
+            function updateProgressBar( slideId ) {
+              var slideNumber = stepids.indexOf(slideId);
+              if (slideNumber === 0) {
+                progressBar.style.width = "3px";
+              } else {
+                var slice = 100 / (stepids.length - 1);
+                progressBar.style.width = (slice * slideNumber).toFixed(2) + '%';
+              }
+            }
+
+            function handleFullScreen( event ) {
+              var i = getContainer();
+              if (
+                document.fullscreenEnabled ||
+                document.webkitFullscreenEnabled ||
+                document.mozFullScreenEnabled ||
+                document.msFullscreenEnabled
+              ) {
+                if (
+                  document.fullscreenElement ||
+                  document.webkitFullscreenElement ||
+                  document.mozFullScreenElement ||
+                  document.msFullscreenElement
+                ) {
+                  if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                  } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                  } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                  } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                  }
+                } else {
+                  if (i.requestFullscreen) {
+                    i.requestFullscreen();
+                  } else if (i.webkitRequestFullscreen) {
+                    i.webkitRequestFullscreen();
+                  } else if (i.mozRequestFullScreen) {
+                    i.mozRequestFullScreen();
+                  } else if (i.msRequestFullscreen) {
+                    i.msRequestFullscreen();
+                  }
+                }
+              }
+            }
+
+            function updateProgressBarOnLeave( event ) {
+              updateProgressBar(event.detail.next.id);
+            }
+
+            function updateProgressBarOnEnter( event ) {
+              updateProgressBar(event.target.id);
+            }
+
+            function handleStepEnter( event ) {
+                event.target.classList.remove( "past" );
+                event.target.classList.remove( "future" );
+                event.target.classList.add( "present" );
+            }
+
+            function handleStepLeave( event ) {
+                event.target.classList.remove( "present" );
+                event.target.classList.add( "past" );
+            }
 
             // STEP CLASSES
             steps.forEach( function( step ) {
                 step.classList.add( "future" );
-            } );
+            });
 
-            root.addEventListener( "impress:stepenter", function( event ) {
-                event.target.classList.remove( "past" );
-                event.target.classList.remove( "future" );
-                event.target.classList.add( "present" );
-            }, false );
+            fullScreenButton.addEventListener("click", handleFullScreen, false);
+            root.addEventListener( "impress:stepenter", handleStepEnter, false );
+            root.addEventListener( "impress:stepenter", updateProgressBarOnEnter, false);
+            root.addEventListener( "impress:stepleave", handleStepLeave, false );
+            root.addEventListener( "impress:stepleave", updateProgressBarOnLeave, false);
 
-            root.addEventListener( "impress:stepleave", function( event ) {
-                event.target.classList.remove( "present" );
-                event.target.classList.add( "past" );
-            }, false );
+            root.addEventListener( "impress:close", function handleClose() {
+              fullScreenButton.addEventListener("click", handleFullScreen);
+              root.removeEventListener("impress:stepenter", handleStepEnter);
+              root.removeEventListener("impress:stepenter", updateProgressBarOnEnter);
+              root.removeEventListener("impress:stepleave", handleStepLeave);
+              root.removeEventListener("impress:stepleave", updateProgressBarOnLeave);
+              root.removeEventListener("impress:close", handleClose);
+            }, false);
 
         }, false );
 
@@ -630,17 +769,11 @@
             // Last hash detected
             var lastHash = "";
 
-            // `#/step-id` is used instead of `#step-id` to prevent default browser
-            // scrolling to element in hash.
-            //
-            // And it has to be set after animation finishes, because in Chrome it
-            // makes transtion laggy.
-            // BUG: http://code.google.com/p/chromium/issues/detail?id=62820
-            root.addEventListener( "impress:stepenter", function( event ) {
+            function handleStepEnter( event ) {
                 window.location.hash = lastHash = "#/" + event.target.id;
-            }, false );
+            }
 
-            window.addEventListener( "hashchange", function() {
+            function handleHashChange() {
 
                 // When the step is entered hash in the location is updated
                 // (just few lines above from here), so the hash change is
@@ -650,7 +783,22 @@
                 if ( window.location.hash !== lastHash ) {
                     goto( getElementFromHash() );
                 }
-            }, false );
+            }
+
+            // `#/step-id` is used instead of `#step-id` to prevent default browser
+            // scrolling to element in hash.
+            //
+            // And it has to be set after animation finishes, because in Chrome it
+            // makes transtion laggy.
+            // BUG: http://code.google.com/p/chromium/issues/detail?id=62820
+            root.addEventListener( "impress:stepenter", handleStepEnter, false );
+            window.addEventListener( "hashchange", handleHashChange, false );
+
+            root.addEventListener( "impress:close", function handleClose() {
+              root.removeEventListener("impress:stepenter", handleStepEnter);
+              window.removeEventListener("hashchange", handleHashChange);
+              root.removeEventListener("impress:close", handleClose);
+            }, false);
 
             // START
             // by selecting step defined in url or first step of the presentation
@@ -664,7 +812,8 @@
             init: init,
             goto: goto,
             next: next,
-            prev: prev
+            prev: prev,
+            close: close
         } );
 
     };
@@ -682,7 +831,7 @@
 //
 // In future I think about moving it to make them optional, move to separate files
 // and treat more like a 'plugins'.
-( function( document, window ) {
+(function( document, window ) {
     "use strict";
 
     // Throttling function calls, by Remy Sharp
@@ -698,6 +847,7 @@
         };
     };
 
+
     // Wait for impress.js to be initialized
     document.addEventListener( "impress:init", function( event ) {
 
@@ -707,16 +857,116 @@
         // need to control the presentation that was just initialized.
         var api = event.detail.api;
 
+        function impressHandleKeyDown( event ) {
+          if ( event.keyCode === 9 ||
+            ( event.keyCode >= 32 && event.keyCode <= 34 ) ||
+            ( event.keyCode >= 37 && event.keyCode <= 40 ) ) {
+            event.preventDefault();
+          }
+        }
+
+        function impressHandleKeyUp( event ) {
+
+          if ( event.shiftKey || event.altKey || event.ctrlKey || event.metaKey ) {
+            return;
+          }
+
+          if ( event.keyCode === 9 ||
+            ( event.keyCode >= 32 && event.keyCode <= 34 ) ||
+            ( event.keyCode >= 37 && event.keyCode <= 40 ) ) {
+            switch ( event.keyCode ) {
+              case 33: // Page up
+              case 37: // Left
+              case 38: // Up
+                api.prev();
+                break;
+              case 9:  // Tab
+              case 32: // Space
+              case 34: // Page down
+              case 39: // Right
+              case 40: // Down
+                api.next();
+                break;
+            }
+
+            event.preventDefault();
+          }
+        }
+
+        function impressHandleLinkClick( event ) {
+          // Event delegation with "bubbling"
+          // Check if event target (or any of its parents is a link)
+          var target = event.target;
+          while ( ( target.tagName !== "A" ) &&
+          ( target !== document.documentElement ) ) {
+            target = target.parentNode;
+          }
+
+          if ( target.tagName === "A" ) {
+            var href = target.getAttribute( "href" );
+
+            // If it's a link to presentation step, target this step
+            if ( href && href[ 0 ] === "#" ) {
+              target = document.getElementById( href.slice( 1 ) );
+            }
+          }
+
+          if ( api.goto( target ) ) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+          }
+        }
+
+        function impressHandleStepClick( event ) {
+          var target = event.target;
+
+          // Find closest step element that is not active
+          while ( !( target.classList.contains( "step" ) &&
+          !target.classList.contains( "active" ) ) &&
+          ( target !== document.documentElement ) ) {
+            target = target.parentNode;
+          }
+
+          if ( api.goto( target ) ) {
+            event.preventDefault();
+          }
+        }
+
+        function impressHandleTouchStart( event ) {
+          if ( event.touches.length === 1 ) {
+            var x = event.touches[ 0 ].clientX,
+              width = window.innerWidth * 0.3,
+              result = null;
+
+            if ( x < width ) {
+              result = api.prev();
+            } else if ( x > window.innerWidth - width ) {
+              result = api.next();
+            }
+
+            if ( result ) {
+              event.preventDefault();
+            }
+          }
+        }
+
+        var timer = null;
+        function impressHandleResize() {
+          function apiResize() {
+            api.goto( document.querySelector( ".step.active" ), 500 );
+          }
+
+          var context = this, args = arguments;
+          clearTimeout( timer );
+          timer = setTimeout( function() {
+            apiResize.apply( context, args );
+          }, 250);
+        }
+
         // KEYBOARD NAVIGATION HANDLERS
 
         // Prevent default keydown action when one of supported key is pressed.
-        document.addEventListener( "keydown", function( event ) {
-            if ( event.keyCode === 9 ||
-               ( event.keyCode >= 32 && event.keyCode <= 34 ) ||
-               ( event.keyCode >= 37 && event.keyCode <= 40 ) ) {
-                event.preventDefault();
-            }
-        }, false );
+        document.addEventListener( "keydown", impressHandleKeyDown, false );
 
         // Trigger impress action (next or prev) on keyup.
 
@@ -733,106 +983,37 @@
         //   positioning. I didn't want to just prevent this default action, so I used [tab]
         //   as another way to moving to next step... And yes, I know that for the sake of
         //   consistency I should add [shift+tab] as opposite action...
-        document.addEventListener( "keyup", function( event ) {
-
-            if ( event.shiftKey || event.altKey || event.ctrlKey || event.metaKey ) {
-                return;
-            }
-
-            if ( event.keyCode === 9 ||
-               ( event.keyCode >= 32 && event.keyCode <= 34 ) ||
-               ( event.keyCode >= 37 && event.keyCode <= 40 ) ) {
-                switch ( event.keyCode ) {
-                    case 33: // Page up
-                    case 37: // Left
-                    case 38: // Up
-                             api.prev();
-                             break;
-                    case 9:  // Tab
-                    case 32: // Space
-                    case 34: // Page down
-                    case 39: // Right
-                    case 40: // Down
-                             api.next();
-                             break;
-                }
-
-                event.preventDefault();
-            }
-        }, false );
+        document.addEventListener( "keyup", impressHandleKeyUp, false );
 
         // Delegated handler for clicking on the links to presentation steps
-        document.addEventListener( "click", function( event ) {
-
-            // Event delegation with "bubbling"
-            // Check if event target (or any of its parents is a link)
-            var target = event.target;
-            while ( ( target.tagName !== "A" ) &&
-                    ( target !== document.documentElement ) ) {
-                target = target.parentNode;
-            }
-
-            if ( target.tagName === "A" ) {
-                var href = target.getAttribute( "href" );
-
-                // If it's a link to presentation step, target this step
-                if ( href && href[ 0 ] === "#" ) {
-                    target = document.getElementById( href.slice( 1 ) );
-                }
-            }
-
-            if ( api.goto( target ) ) {
-                event.stopImmediatePropagation();
-                event.preventDefault();
-            }
-        }, false );
+        document.addEventListener( "click", impressHandleLinkClick, false );
 
         // Delegated handler for clicking on step elements
-        document.addEventListener( "click", function( event ) {
-            var target = event.target;
-
-            // Find closest step element that is not active
-            while ( !( target.classList.contains( "step" ) &&
-                      !target.classList.contains( "active" ) ) &&
-                      ( target !== document.documentElement ) ) {
-                target = target.parentNode;
-            }
-
-            if ( api.goto( target ) ) {
-                event.preventDefault();
-            }
-        }, false );
+        document.addEventListener( "click", impressHandleStepClick, false );
 
         // Touch handler to detect taps on the left and right side of the screen
         // based on awesome work of @hakimel: https://github.com/hakimel/reveal.js
-        document.addEventListener( "touchstart", function( event ) {
-            if ( event.touches.length === 1 ) {
-                var x = event.touches[ 0 ].clientX,
-                    width = window.innerWidth * 0.3,
-                    result = null;
-
-                if ( x < width ) {
-                    result = api.prev();
-                } else if ( x > window.innerWidth - width ) {
-                    result = api.next();
-                }
-
-                if ( result ) {
-                    event.preventDefault();
-                }
-            }
-        }, false );
+        //document.addEventListener( "touchstart", impressHandleTouchStart, false );
 
         // Rescale presentation when window is resized
-        window.addEventListener( "resize", throttle( function() {
+        window.addEventListener( "resize", impressHandleResize, false );
 
-            // Force going to active step again, to trigger rescaling
-            api.goto( document.querySelector( ".step.active" ), 500 );
-        }, 250 ), false );
+        document.addEventListener('impress:close',
+          function impressHandleClose( event ) {
 
+            // Remove event listeners
+            document.removeEventListener('keydown', impressHandleKeyDown);
+            document.removeEventListener('keyup', impressHandleKeyUp);
+            document.removeEventListener('click', impressHandleLinkClick);
+            document.removeEventListener('click', impressHandleStepClick);
+            document.removeEventListener('touchstart', impressHandleTouchStart);
+            window.removeEventListener('resize', impressHandleResize);
+
+            // Remove this event listener
+            document.removeEventListener('impress:close', impressHandleClose);
+        }, false);
     }, false );
-
-} )( document, window );
+})(document,window);
 
 // THAT'S ALL FOLKS!
 //
