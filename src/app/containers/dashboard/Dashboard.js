@@ -2,7 +2,6 @@ import React from 'react';
 
 import UserMenu from '../user/UserMenu';
 import DashboardMain from './DashboardMain';
-
 import s from './dashboard.scss';
 
 class Dashboard extends React.Component {

@@ -28,6 +28,11 @@
 
     .mobile-widget-container {
       border: 1px solid black;
+
+      .sectioner {
+        width: 50%;
+        float: right;
+      }
     }
   }
 }

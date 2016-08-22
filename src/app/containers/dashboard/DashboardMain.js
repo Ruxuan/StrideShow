@@ -38,10 +38,12 @@ class DashboardMain extends React.Component {
               projectActions={this.props.projectActions} />
           </div>
           <div className='mobile-widget-container'>
-            <MobileWidget
-              networkState={this.props.networkState}
-              networkActions={this.props.networkActions}
-            />
+            <div className="sectioner">
+              <MobileWidget
+                networkState={this.props.networkState}
+                networkActions={this.props.networkActions}
+              />
+            </div>
           </div>
         </div>
       </div>
