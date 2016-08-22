@@ -13,7 +13,7 @@ class Project extends React.Component {
     var selectProject = this.props.actions.selectProject;
 
     if (selected) {
-      //selectProject('deselect');
+
     } else {
       e.preventDefault();
       e.stopPropagation();
