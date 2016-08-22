@@ -12,10 +12,11 @@ var path     = require('path');
 
 // Compile sample presentations into one json file
 var PRESENTATION_FILES = [
-		"data/sample-presentations/universe/universe.json",
-		"data/sample-presentations/global-warming/global-warming.json",
-		"data/sample-presentations/instructions/instructions.json",
-		"data/sample-presentations/impress-intro/impress-intro.json"
+	"data/sample-presentations/universe/universe.json",
+	"data/sample-presentations/global-warming/global-warming.json",
+	"data/sample-presentations/instructions/instructions.json",
+	"data/sample-presentations/impress-intro/impress-intro.json",
+  "data/sample-presentations/vault/vault.json"
 	].map(pathName => path.resolve(pathName));
 var TARGET_DIRECTORY   = path.resolve("data/sample-presentations/sample-presentations.json");
 // Compile presentations Function
@@ -62,7 +63,7 @@ _router.get('/*', function(req, res) {
 	// Render
 	res.render('demo/demo', {
 		data: renderData,
-	 	devServer: 'http://1bccb136.ngrok.io/demo'
+	 	devServer: 'http://f7a6d21a.ngrok.io/demo'
 	});
 });
 
