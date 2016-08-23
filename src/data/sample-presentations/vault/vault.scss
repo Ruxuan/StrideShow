@@ -1,5 +1,328 @@
 #impress-container {
   font-family: 'PT Sans', sans-serif;
   background: black;
-  color: white;
+
+  .step {
+    position: relative;
+    padding: 40px;
+    margin: 0 auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    -ms-box-sizing:     border-box;
+    -o-box-sizing:      border-box;
+    box-sizing:         border-box;
+    font-family: 'PT Serif', georgia, serif;
+    font-size: 48px;
+    line-height: 1.5;
+  }
+  .slide {
+    display: block;
+    width: 900px;
+    height: 600px;
+    padding: 30px 30px;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, .3);
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
+    color: rgb(102, 102, 102);
+    text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+    font-family: 'Open Sans', Arial, sans-serif;
+  }
+  h3 {
+    font-size: 1.17em;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  ul {
+    margin-top: 28px;
+  }
+
+  ol {
+    margin-top: 28px;
+  }
+
+  .code {
+    background-color: black;
+    color: white;
+    font-family: "Inconsolata";
+  }
+  .credits, .credits h2 {
+    padding-top: 0;
+  }
+
+  #first-slide h1 {
+    color: white;
+  }
+
+  #first-slide {
+    background-color: black;
+    text-align: center;
+  }
+
+  #first-slide .small {
+    font-size: 0.5em;
+  }
+
+  #hashicorp .hashicorp {
+    position: absolute;
+    right: 50px;
+    top: 50px;
+  }
+
+  #hashicorp .consul {
+    position: absolute;
+    right: 300px;
+    top: 200px;
+  }
+
+  #hashicorp .vagrant {
+    position: absolute;
+    right: 100px;
+    top: 300px;
+  }
+
+  #hashicorp .terraform {
+    position: absolute;
+    right: 275px;
+    top: 425px;
+  }
+
+  #hashicorp h3 {
+    position: relative;
+  }
+
+  #vault-secrets {
+    .secrets {
+      position: absolute;
+      top:200px;
+      left:375px;
+    }
+  }
+
+  #features {
+    .icon {
+      position: absolute;
+      top:70px;
+      right:25px;
+    }
+  }
+
+  #vault-interface .interface {
+    text-align: center
+  }
+
+  #vault-interface .interface-container {
+    height: 500px;
+    overflow: hidden;
+  }
+
+  #backends {
+
+    li {
+      font-size: 0.75em;
+    }
+
+    ul {
+      margin-top: 38px;
+      margin-bottom: 28px;
+    }
+
+    .code {
+      margin-top:100px;
+    }
+  }
+
+  #mounts-example .code {
+    font-size: 0.5em;
+  }
+
+  #mounts-example .full {
+    height: 100%;
+  }
+
+  #authentication li {
+    font-size: 0.8em;
+  }
+
+  #authentication .code {
+    font-size: 0.5em;
+  }
+
+  #auth-backend {
+    .example {
+      font-size: 0.6em;
+    }
+  }
+
+  #userpass {
+    .code {
+      font-size: 0.6em;
+    }
+  }
+
+  #ttl li {
+    font-size: 0.6em;
+  }
+
+  #user-permissions {
+    .two {
+      display:inline-block;
+    }
+
+    .sample {
+      font-size: 0.5em;
+      width: 480px;
+    }
+  }
+
+  #writing .code {
+    font-size: 0.6em;
+  }
+
+  #writing .plabel {
+    color: yellow;
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+
+  #writing .num1 {
+    position: absolute;
+    top: 68px;
+    left: 87px;
+  }
+
+  #writing .num2 {
+    position: absolute;
+    top: 68px;
+    left: 160px;
+  }
+
+  #writing .num3 {
+    position: absolute;
+    top: 68px;
+    left: 342px;
+  }
+
+  #writing .num4 {
+    position: absolute;
+    top: 175px;
+    left: 358px;
+  }
+
+  #writing ol {
+    margin-top: 0;
+    margin-left: 20px;
+  }
+
+  #reading .plabel {
+    color: yellow;
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+
+  #reading .num1 {
+    position: absolute;
+    top: 157px;
+    left: 126px;
+  }
+
+  #reading .num2 {
+    position: absolute;
+    top: 157px;
+    left: 256px;
+  }
+
+  #reading .num3 {
+    position: absolute;
+    top: 157px;
+    left: 492px;
+  }
+
+  #reading li {
+    font-size: 0.75em;
+  }
+
+  #reading ol {
+    margin-top: 28px;
+    margin-bottom: 20px;
+  }
+
+  #reading .bot {
+    font-size: 0.6em;
+  }
+
+  #listing .plabel {
+    color: yellow;
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+
+  #listing .num1 {
+    position: absolute;
+    top: 157px;
+    left: 126px;
+  }
+
+  #listing .num2 {
+    position: absolute;
+    top: 157px;
+    left: 256px;
+  }
+
+  #listing .num3 {
+    position: absolute;
+    top: 157px;
+    left: 398px;
+  }
+
+  #listing ol {
+    margin-left: 12px;
+    margin-top: 18px;
+    margin-bottom: 8px;
+  }
+
+  #listing .bot {
+    font-size: 0.6em;
+  }
+
+  #deleting .plabel {
+    color: yellow;
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+
+  #deleting .num1 {
+    position: absolute;
+    top: 157px;
+    left: 126px;
+  }
+
+  #deleting .num2 {
+    position: absolute;
+    top: 157px;
+    left: 256px;
+  }
+
+  #deleting .num3 {
+    position: absolute;
+    top: 157px;
+    left: 492px;
+  }
 }
