@@ -182,6 +182,8 @@
 
   #writing .code {
     font-size: 0.6em;
+    margin-top:32px;
+    margin-bottom:12px;
   }
 
   #writing .plabel {
@@ -220,6 +222,7 @@
   #writing ol {
     margin-top: 0;
     margin-left: 20px;
+    font-size: 0.75em;
   }
 
   #reading .plabel {
@@ -233,19 +236,19 @@
 
   #reading .num1 {
     position: absolute;
-    top: 157px;
+    top: 132px;
     left: 126px;
   }
 
   #reading .num2 {
     position: absolute;
-    top: 157px;
+    top: 132px;
     left: 256px;
   }
 
   #reading .num3 {
     position: absolute;
-    top: 157px;
+    top: 132px;
     left: 492px;
   }
 
@@ -273,19 +276,19 @@
 
   #listing .num1 {
     position: absolute;
-    top: 157px;
+    top: 132px;
     left: 126px;
   }
 
   #listing .num2 {
     position: absolute;
-    top: 157px;
+    top: 132px;
     left: 256px;
   }
 
   #listing .num3 {
     position: absolute;
-    top: 157px;
+    top: 132px;
     left: 398px;
   }
 
@@ -310,19 +313,24 @@
 
   #deleting .num1 {
     position: absolute;
-    top: 157px;
+    top: 132px;
     left: 126px;
   }
 
   #deleting .num2 {
     position: absolute;
-    top: 157px;
+    top: 132px;
     left: 256px;
   }
 
   #deleting .num3 {
     position: absolute;
-    top: 157px;
+    top: 132px;
     left: 492px;
+  }
+
+  .cent {
+    position: relative;
+    left: 200px;
   }
 }
