@@ -1,4 +1,5 @@
 import React from 'react';
+import LaserTool from './tools/LaserTool';
 import s from './slideshow.scss';
 
 class ImpressView extends React.Component {
@@ -19,7 +20,7 @@ class ImpressView extends React.Component {
   }
 
   componentWillReceiveProps(nextState) {
-    // TODO: figure out why this is component is being re-rendered so much. Something to do with impress() and init()
+    // TODO: Why is this component is being re-rendered so much. Something to do with impress() and init()
     var currentSlideIndex = this.props.impressState.slideIndex;
     var nextSlideIndex    = nextState.impressState.slideIndex;
 
@@ -41,6 +42,9 @@ class ImpressView extends React.Component {
               { this.props.css }
             </style>
             <div id="impress" dangerouslySetInnerHTML={this.props.dangerousHtml} />
+
+            <LaserTool
+              laserPointer = { this.props.impressState.laserPointer } />
         </div>
       </div>
     )

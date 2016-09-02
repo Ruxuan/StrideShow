@@ -16,6 +16,22 @@
       flex-grow: 1;
     }
   }
+
+
+  .impress-view {
+    position: relative;
+
+    #laser {
+      //display: none
+      position: absolute;
+      border-radius: 50%;
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      background: red;
+    }
+  }
 }
 
 #impress-container {

@@ -21,6 +21,10 @@ export function attachSocket(title, index) {
       console.log('goto');
       //dispatch(impressGoto(data));
     });
+
+    socket.on("laserPointer", function(data) {
+      dispatch(impressLaserPointer(data.ratioX, data.ratioY));
+    });
   }
 }
 
@@ -33,6 +37,7 @@ export function detachSocket() {
     socket.off('next');
     socket.off('prev');
     socket.off('goto');
+    socket.off('laserPointer');
   }
 }
 
@@ -66,5 +71,13 @@ export const impressPrev = () => {
 export const impressGoto = () => {
   return {
     type: names.IMPRESS_GOTO
+  }
+};
+
+export const impressLaserPointer = (x, y) => {
+  return {
+    type: names.IMPRESS_LASER_POINTER,
+    x,
+    y
   }
 };

@@ -1,10 +1,14 @@
-/*  guestSockets[roomKey] = {
+/*
+  Structure
+
+  guestSockets[roomKey] = {
 		'room'   : socket.id, // String
 		'socket' : socket     // Socket Object
-	}; */
+	};
+*/
 var guestSockets = {};
 var low          = 1000;
-var high         = 1004;
+var high         = 2000;
 
 function isUnique(roomKey) {
 	var keys = Object.keys(guestSockets);
@@ -63,6 +67,14 @@ function getRoomKeyBySocketId(room) {
   return Object.keys(guestSockets).find(key => guestSockets[key].room === room);
 }
 
+function getRoom(socketId) {
+  if (guestSockets[socketId] === undefined) {
+    return;
+  }
+
+  return guestSockets[socketId].room;
+}
+
 module.exports = function(app, io) {
 	var demo = io.of('/demo');
 	demo.on('connection', function(socket) {
@@ -75,7 +87,7 @@ module.exports = function(app, io) {
 
 		// Core *****************************************************
 
-		// Generate private keys
+		// Generate private roomKeys
 		if (socket.handshake.query.reqRoom === "true") {
 			// Generate a private room key for client
 			var roomKey = randomRoomKey();
@@ -102,8 +114,17 @@ module.exports = function(app, io) {
 
 		// Event Listeners ******************************************
 
-		socket.on('requestRoom', function(data) {
+		socket.on('requestRoom', function(data, callback) {
 		  console.log('Room requested');
+
+      if (guestSockets[data.roomKey] === undefined) {
+        return;
+      }
+
+      // Switch key to mobile socket id, keep old key so it can't be overwritten
+      guestSockets[socket.id] = guestSockets[data.roomKey];
+
+      // TODO: Call callback instead
 			demo.to(socket.id).emit("respondRoom",
 				{
 					room: guestSockets[data.roomKey].room,
@@ -114,18 +135,23 @@ module.exports = function(app, io) {
 		// Impress JS commands **************************************
 
 		socket.on('next', function(data) {
-			console.log('EMIT next');
-			demo.to(data.room).emit('next');
+			var room = getRoom(socket.id);
+			demo.to(room).emit('next');
 		});
 
 		socket.on('prev', function(data) {
-			console.log('EMIT prev');
-			demo.to(data.room).emit('prev');
+      var room = getRoom(socket.id);
+      demo.to(room).emit('prev');
 		});
 
 		socket.on('goto', function(data) {
 			//
 			//socket.emit('goto', data);
 		});
+
+    socket.on('laserPointer', function(data) {
+      var room = getRoom(socket.id);
+      demo.to(room).emit('laserPointer', data);
+    });
 	});
 };

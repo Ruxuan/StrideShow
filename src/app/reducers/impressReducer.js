@@ -26,7 +26,19 @@ const impressReducer = (state={}, action) => {
     case names.IMPRESS_RESET:
       return {
         slideName: null,
-        slideIndex: 0
+        slideIndex: 0,
+        laserPointer: {
+          x: 0,
+          y: 0
+        }
+      };
+    case names.IMPRESS_LASER_POINTER:
+      return {
+        ...state,
+        laserPointer: {
+          x: action.x,
+          y: action.y
+        }
       };
     default:
       return state;
