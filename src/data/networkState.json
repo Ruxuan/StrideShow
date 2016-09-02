@@ -8,7 +8,11 @@
     "computerInfo": {
       "OS": null,
       "model": null,
-      "owner": null
+      "owner": null,
+      "screen": {
+        "width": null,
+        "height": null
+      }
     }
   },
   "mobile": {
@@ -18,7 +22,11 @@
     "deviceInfo": {
       "OS": null,
       "model": null,
-      "owner": null
+      "owner": null,
+      "screen": {
+        "width": null,
+        "height": null
+      }
     }
   },
   "internet": {
