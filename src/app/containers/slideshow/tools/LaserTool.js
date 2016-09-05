@@ -32,7 +32,8 @@ class LaserTool extends React.Component {
     }
 
     return (
-      <div id="laser" style={ this.pointerCSS }></div>
+      <div id="laser" style={ this.pointerCSS }>
+      </div>
     )
   }
 }

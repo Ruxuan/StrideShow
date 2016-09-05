@@ -63,7 +63,7 @@ _router.get('/*', function(req, res) {
 	// Render
 	res.render('demo/demo', {
 		data: renderData,
-	 	devServer: 'http://f7a6d21a.ngrok.io/demo'
+	 	devServer: 'http://ee8f5ec2.ngrok.io/demo'
 	});
 });
 
