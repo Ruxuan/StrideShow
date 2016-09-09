@@ -25,5 +25,13 @@
 }
 
 .project-menu {
-  border: 1px solid black;
+
+  .project-options {
+
+    span {
+      cursor: pointer;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
 }

@@ -4,16 +4,13 @@
 
 .slideshow {
   .info-container {
-    display: flex;
 
     .meta-data {
-      display: flex;
-      flex-grow: 1;
+
     }
 
     .mobile-widget-container {
-      display: flex;
-      flex-grow: 1;
+
     }
   }
 
@@ -24,6 +21,7 @@
     #laser {
       //display: none
       position: absolute;
+      display: none;
       border-radius: 50%;
       top: 0;
       left: 0;
