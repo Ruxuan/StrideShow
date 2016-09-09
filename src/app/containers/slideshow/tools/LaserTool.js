@@ -5,7 +5,7 @@ import React from 'react';
 
 class LaserTool extends React.Component {
 
-  pointerCSS  = null;
+  pointerCSS = null;
   container  = null;
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -25,15 +25,27 @@ class LaserTool extends React.Component {
     } else {
       // TODO: wrong if dimensions of phone and monitor are different
       // TODO: better measure of relative? Send screen size info
-      this.pointerCSS = {
-        top:  this.props.laserPointer.y * this.container.offsetHeight,
-        left: this.props.laserPointer.x * this.container.offsetWidth
-      };
+
+      let x = this.props.laserPointer.x;
+      let y = this.props.laserPointer.y;
+
+      if (x != 0 || y != 0) {
+        this.pointerCSS = {
+          display: "block",
+          top:  y * this.container.offsetHeight,
+          left: x * this.container.offsetWidth
+        };
+      } else {
+        this.pointerCSS = {
+          display: "none",
+          top: 0,
+          left: 0
+        }
+      }
     }
 
     return (
-      <div id="laser" style={ this.pointerCSS }>
-      </div>
+      <div id="laser" style={ this.pointerCSS }></div>
     )
   }
 }
