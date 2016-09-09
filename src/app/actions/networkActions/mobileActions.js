@@ -3,30 +3,42 @@ import { socket } from './socketActions';
 
 export function mobileInit() {
   return (dispatch) => {
-    console.log('Mobile Initialization');
+    // Mobile socket listeners
+    socket.on('mobileConnect', function(data) {
+      dispatch(mobileConnect(data.model, data.sdk, data.os));
+    });
+
+    socket.on('mobileDisconnect', function() {
+      dispatch(mobileDisconnect());
+    });
+
+    // Mobile active project
+    socket.on('mobileActiveProject', function(data) {
+      dispatch(mobileActiveProject(data.mobileActiveProject));
+    });
   }
 }
 
-export const mobileConnect = () => {
+const mobileConnect = (model, sdk, os) => {
   return {
-    type: names.MOBILE_CONNECT
+    type: names.MOBILE_CONNECT,
+    deviceInfo: {
+      OS: os,
+      SDK: sdk,
+      model: model,
+    }
   }
 };
 
-export const mobileDisconnect = () => {
+const mobileDisconnect = () => {
   return {
     type: names.MOBILE_DISCONNECT
   }
 };
 
-export const mobileActiveProject = () => {
+const mobileActiveProject = (activeProject) => {
   return {
-    type: names.MOBILE_ACTIVE_PROJECT
-  }
-};
-
-export const mobileDeviceInfo = () => {
-  return {
-    type: names.MOBILE_DEVICE_INFO
+    type: names.MOBILE_ACTIVE_PROJECT,
+    activeProject
   }
 };
