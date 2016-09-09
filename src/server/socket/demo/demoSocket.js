@@ -1,78 +1,33 @@
 /*
   Structure
 
-  guestSockets[roomKey] = {
+  clientConnections[roomKey] = {
 		'room'   : socket.id, // String
 		'socket' : socket     // Socket Object
 	};
+
+	mobileConnections[mobile socket id] = {
+	  'socket' : socket // SocketIO object
+	}
 */
-var guestSockets = {};
-var low          = 1000;
-var high         = 2000;
 
-function isUnique(roomKey) {
-	var keys = Object.keys(guestSockets);
-	var len  = keys.length;
-
-	for(var i = 0; i < len; i++) {
-		// keys[i] is a string
-		// roomKey is an integer
-		if (keys[i] == roomKey) {
-			return false;
-		}
-	}
-
-	return true;
-}
-
-function randomInt() {
-	return Math.floor(Math.random() * (high - low + 1) + low);
-}
-
-function randomRoomKey() {
-	// Checks if we reached full connection capacity
-	if (Object.keys(guestSockets).length > (high - low + 1)) {
-		// Reached full connection capacity, return -1
-		return -1;
-	}
-
-	var randKey = randomInt();
-
-	// Random key search limit
-	var counter  = 0;
-	var limit    = 10;
-
-	// Loop until unique key is found or limit is reached
-	while (!isUnique(randKey)) {
-		if (counter <= limit) {
-			randKey = randomInt();
-			counter++;
-		} else {
-			// Too many users online right now
-			// Difficult to find unique key
-			// Try again later
-			return -2;
-		}
-	}
-
-	// Return unique key
-	return randKey;
-}
+var clientConnections = {};
+var mobileConnections = {};
 
 function removeFromGuestSockets(roomKey) {
-	delete guestSockets[roomKey];
+	delete clientConnections[roomKey];
 }
 
 function getRoomKeyBySocketId(room) {
-  return Object.keys(guestSockets).find(key => guestSockets[key].room === room);
+  return Object.keys(clientConnections).find(key => clientConnections[key].room === room);
 }
 
 function getRoom(socketId) {
-  if (guestSockets[socketId] === undefined) {
+  if (clientConnections[socketId] === undefined) {
     return;
   }
 
-  return guestSockets[socketId].room;
+  return clientConnections[socketId].room;
 }
 
 module.exports = function(app, io) {
@@ -82,6 +37,12 @@ module.exports = function(app, io) {
 
 		socket.on('disconnect', function() {
 			console.log('Disconnected /demo');
+
+      // TODO: differentiate between client and mobile
+      // Mobile disconnect
+
+
+      // Delete entries
 			removeFromGuestSockets(getRoomKeyBySocketId(socket.id));
 		});
 
@@ -90,7 +51,8 @@ module.exports = function(app, io) {
 		// Generate private roomKeys
 		if (socket.handshake.query.reqRoom === "true") {
 			// Generate a private room key for client
-			var roomKey = randomRoomKey();
+
+			var roomKey = require('../roomKeyGenerator')(clientConnections);
 
 			if (roomKey === -1) {
 				// Emit no demoRooms left
@@ -102,7 +64,7 @@ module.exports = function(app, io) {
 				console.log("Too many users online, try again later");
 			} else {
 
-				guestSockets[roomKey] = {
+				clientConnections[roomKey] = {
 					'room'   : socket.id,
 					'socket' : socket
 				};
@@ -117,19 +79,24 @@ module.exports = function(app, io) {
 		socket.on('requestRoom', function(data, callback) {
 		  console.log('Room requested');
 
-      if (guestSockets[data.roomKey] === undefined) {
+      if (clientConnections[data.roomKey] === undefined) {
         return;
       }
 
       // Switch key to mobile socket id, keep old key so it can't be overwritten
-      guestSockets[socket.id] = guestSockets[data.roomKey];
+      clientConnections[socket.id] = clientConnections[data.roomKey];
 
-      // TODO: Call callback instead
+      // TODO: Use callback instead
 			demo.to(socket.id).emit("respondRoom",
 				{
-					room: guestSockets[data.roomKey].room,
-					referer: guestSockets[data.roomKey].socket.handshake.headers.referer
+					room: clientConnections[data.roomKey].room,
+					referer: clientConnections[data.roomKey].socket.handshake.headers.referer
 				});
+
+      // Tell computer about connection
+      var room = getRoom(socket.id);
+      demo.to(room).emit("mobileConnect");
+      demo.to(room).emit("mobileDeviceInfo", data.deviceInfo);
 		});
 
 		// Impress JS commands **************************************

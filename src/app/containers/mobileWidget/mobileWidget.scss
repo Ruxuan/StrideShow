@@ -1,0 +1,34 @@
+.mobile-widget {
+  width: 100%;
+  border: 1px solid green;
+
+  .socket-status {
+
+    div {
+
+      :first-child {
+        display: inline-block;
+        width: 50%;
+      }
+
+      :last-child {
+        width: 50%;
+      }
+    }
+  }
+
+  .mobile-status {
+
+    div {
+
+      :first-child {
+        display: inline-block;
+        width: 50%;
+      }
+
+      :last-child {
+        width: 50%;
+      }
+    }
+  }
+}
