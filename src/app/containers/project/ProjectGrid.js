@@ -10,7 +10,7 @@ class ProjectGrid extends React.Component {
                 i={i}
                 project={project}
                 ui={this.props.uiState.UIprojectGrid[i]}
-                actions={this.props.projectActions} />
+                projectActions={this.props.projectActions} />
     });
 
     return (

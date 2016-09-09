@@ -7,10 +7,14 @@ class Project extends React.Component {
     this.handleOnProjectClick = this.handleOnProjectClick.bind(this);
   }
 
+  handleOnClick(e) {
+    e.stopPropagation();
+  }
+
   handleOnProjectClick(e) {
     var id            = this.props.i;
     var selected      = this.props.ui.selected;
-    var selectProject = this.props.actions.selectProject;
+    var selectProject = this.props.projectActions.selectProject;
 
     if (selected) {
 
@@ -24,7 +28,6 @@ class Project extends React.Component {
   render() {
     var index   = this.props.i;
     var project = this.props.project;
-
     var selected = this.props.ui.selected;
 
     var projectBoxClass;
@@ -35,7 +38,7 @@ class Project extends React.Component {
     }
 
     return (
-      <li>
+      <li onClick={ this.handleOnClick }>
         <Link to={`/demo/slideshow/${index}`}>
           <div className={projectBoxClass} onClick={this.handleOnProjectClick}>
             {index} : {project.meta_data.title}

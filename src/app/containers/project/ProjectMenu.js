@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 class ProjectMenu extends React.Component {
 
@@ -18,17 +19,21 @@ class ProjectMenu extends React.Component {
 
   render() {
     var projectOptions;
-    var projectTitle
+    var projectTitle;
 
     var activeProject = this.props.uiState.UIactiveProject;
     if (activeProject != 'deselect') {
       projectOptions = (
-        <span className="project-options" onClick={ this.sorry }>
-          <span>Shareable Link</span>
-          <span>Share Project</span>
-          <span>View</span>
-          <span>Delete</span>
-          <span>More Options</span>
+        <span className="project-options">
+          <span onClick={this.sorry}> Shareable Link </span>
+          <span onClick={this.sorry}> Share Project </span>
+
+          <Link to={`/demo/slideshow/${activeProject}`}>
+            <span> View </span>
+          </Link>
+
+          <span onClick={this.sorry}> Delete </span>
+          <span onClick={this.sorry}> More Options </span>
         </span>
       );
 
@@ -36,7 +41,7 @@ class ProjectMenu extends React.Component {
     }
 
     return (
-      <div className="project-menu" onClick={this.handleOnClick}>
+      <div className="project-menu" onClick={ this.handleOnClick }>
         <div className='row'>
           <div className='col-sm-2'>ProjectMenu</div>
           <div className='col-sm-4'>
