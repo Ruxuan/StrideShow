@@ -16,11 +16,11 @@ class Slideshow extends React.Component {
 
     return (
       <div className="slideshow">
-        <div className="info-container">
-          <div className="meta-data">
+        <div className="row info-container">
+          <div className="col-sm-6 meta-data">
             <h3>Now playing: { meta_data.title } by { meta_data.author }</h3>
           </div>
-          <div className="mobile-widget-container">
+          <div className="col-sm-6 mobile-widget-container">
             <MobileWidget networkState={this.props.networkState} />
           </div>
         </div>

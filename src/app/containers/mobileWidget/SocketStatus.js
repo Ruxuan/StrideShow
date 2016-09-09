@@ -2,21 +2,30 @@ import React from 'react';
 
 class SocketStatus extends React.Component {
   render() {
-    var status        = this.props.socketState.status;
-    var room          = this.props.socketState.room;
-    var activeProject = this.props.socketState.activeProject;
 
     return (
-      <div>
+      <div className="socket-status">
         <h4>Socket Status</h4>
         <div>
-          Status: { status }
+          <span>Status:</span>
+          <span>{ this.props.socketState.status }</span>
         </div>
         <div>
-          Room: { room }
+          <span>Room:</span>
+          <span>{ this.props.socketState.room }</span>
         </div>
         <div>
-          Active Project: { activeProject }
+          <span>Active Project:</span>
+          <span>{ this.props.socketState.activeProject }</span>
+        </div>
+        <div>
+          <span>OS:</span>
+          <span>{ this.props.socketState.computerInfo.OS }</span>
+        </div>
+        <div>
+          <span>Browser:</span>
+          <span>{ this.props.socketState.computerInfo.browser.name} v
+            { this.props.socketState.computerInfo.browser.version }</span>
         </div>
       </div>
     )
