@@ -6,13 +6,11 @@
     "room": null,
     "activeProject": null,
     "computerInfo": {
-      "OS": null,
-      "model": null,
-      "owner": null,
-      "screen": {
-        "width": null,
-        "height": null
-      }
+      "browser": {
+        "name": null,
+        "version": null
+      },
+      "OS": null
     }
   },
   "mobile": {
@@ -21,12 +19,8 @@
     "activeProject": null,
     "deviceInfo": {
       "OS": null,
-      "model": null,
-      "owner": null,
-      "screen": {
-        "width": null,
-        "height": null
-      }
+      "SDK": null,
+      "model": null
     }
   },
   "internet": {
