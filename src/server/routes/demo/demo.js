@@ -29,6 +29,8 @@ var NETWORK_STATE_DIR = path.resolve("data/networkState.json");
 var IMPRESS_STATE_DIR = path.resolve("data/impressState.json");
 //*************************************************
 // Paths
+
+// Server Side rendering
 //var React = require('react');
 //var ReactDOMServer = require('react-dom/server');
 
@@ -63,7 +65,7 @@ _router.get('/*', function(req, res) {
 	// Render
 	res.render('demo/demo', {
 		data: renderData,
-	 	devServer: 'http://ee8f5ec2.ngrok.io/demo'
+	 	devServer: 'http://d9f67d82.ngrok.io/client'
 	});
 });
 
