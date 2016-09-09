@@ -33,6 +33,11 @@ const socketReducer = (state={}, action) =>  {
         ...state,
         activeProject: action.index
       };
+    case names.SOCKET_COMPUTER_INFO:
+      return {
+        ...state,
+        computerInfo: action.computerInfo
+      };
     default:
       return state;
   }

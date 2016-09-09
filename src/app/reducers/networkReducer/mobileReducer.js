@@ -3,25 +3,25 @@ import * as actions from '../../constants/actionNames';
 const mobileReducer = (state={}, action) => {
   switch(action.type) {
     case actions.MOBILE_CONNECT:
+      return {
+        ...state,
+        status: action.type,
+        deviceInfo: action.deviceInfo
+      };
     case actions.MOBILE_DISCONNECT:
       return {
         ...state,
-        status: action.type
+        status: action.type,
+        deviceInfo: {
+          OS: null,
+          SDK: null,
+          model: null
+        }
       };
     case actions.MOBILE_ACTIVE_PROJECT:
       return {
         ...state,
-        // TODO: mobileActiveProject: action.activeProjectId
-      };
-    // TODO: rm mobile device info and set it when mobile connects?
-    case actions.MOBILE_DEVICE_INFO:
-      return {
-        ...state,
-        mobileDeviceInfo: {
-          OS: "Android Nougat",
-          model: "Nexus 5",
-          owner: "Ruxuan Li"
-        }
+        activeProject: action.activeProject
       };
     default:
       return state;
