@@ -11,7 +11,11 @@ class Slideshow extends React.Component {
     const css       = project.presentation.css;
     const meta_data = project.meta_data;
 
-    const html      = project.presentation.html;
+    var html = "";
+    project.presentation.steps.forEach(function(el) {
+      html += el.html + '\n';
+    });
+
     const dangerous = {__html: html};
 
     return (

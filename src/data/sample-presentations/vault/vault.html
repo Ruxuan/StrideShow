@@ -1,265 +1,267 @@
-<link rel="stylesheet" type="text/css"
-      href="https://fonts.googleapis.com/css?family=Inconsolata">
-<div id="first-slide" class="step slide" data-x="-450" data-y="-300" data-rotate="0" data-scale="2">
-	<h1>Introduction to Vault for Users</h1>
-	<p class="small">A product created by Hashicorp</p>
-</div>
-<div id="hashicorp" class="step slide" data-x="2116" data-y="-299" data-rotate="0" data-scale="1">
-	<h3>Hashicorp</h3>
-	<img class="hashicorp" src="https://avatars2.githubusercontent.com/u/761456?v=3&s=400" style="width:200px;height:200px">
-	<img class="consul" src="https://www.consul.io/assets/images/logo_large-475cebb0.png" style="width:150px;height:150px">
-	<img class="vagrant" src="https://www.hashicorp.com/images/v2/logos/vagrant-logo-cfd74662.png" style="width:150px;height:150px">
-	<img class="terraform" src="https://www.hashicorp.com/images/blog/terraform/small-a17be924.png" style="width:150px;height:150px">
-	<div>
-		<ul>
-			<li> Consul </li>
-			<li> Vagrant </li>
-			<li> Terraform </li>
-		</ul>
-	</div>
-</div>
-<div id="vault-secrets" class="step slide" data-x="1976" data-y="533" data-rotate="18.94736842105263" data-scale="1">
-	<h3>Securely stores and controls access to:</h3>
-	<ul>
-		<li> tokens </li>
-		<li> passwords </li>
-		<li> certificates </li>
-		<li> API keys </li>
-	</ul>
-  <img class="secrets" src="https://tctechcrunch2011.files.wordpress.com/2015/04/graphic-key2x.png" style="width:486px;height:280px">
-</div>
-<div id="features" class="step slide" data-x="1574" data-y="1276" data-rotate="37.89473684210526" data-scale="1">
-	<h3>Features</h3>
-	<ul>
-		<li> Access controls </li>
-		<li> Audit logs </li>
-		<li> Encrypted storage </li>
-		<li> Break glass features </li>
-	</ul>
-  <img class="icon" src="https://www.vaultproject.io/assets/images/logo_large-0c8c5d37.png" style="width:400px">
-</div>
-<div id="vault-interface" class="step slide" data-x="953" data-y="1848" data-rotate="56.84210526315789" data-scale="1">
-	<h3>Interface: Command line</h3>
-	<div class="interface-container">
-		<img class="interface" src="http://blog.linoxide.com/wp-content/uploads/2015/04/vault.png">
-	</div>
-</div>
-<div id="backends" class="step slide" data-x="179" data-y="2187" data-rotate="75.78947368421052" data-scale="1">
-	<h3>Secrets Backends</h3>
-	<ul>
-		<li> Are "roots" of a filesystem </li>
-		<li> Different types of backends for different types of secrets</li>
-		<li> Types: generic, aws, cubbyhole, and more </li>
-	</ul>
-	<div class="code">
-		$ vault mounts
-	</div>
-</div>
-<div id="mounts-example" class="step slide" data-x="-661" data-y="2257" data-rotate="94.73684210526315" data-scale="1">
-	<div class="full code">
-		$ vault mounts <br>
-		PATH &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp TYPE &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp DESCRIPTION
-		<br><br>
-		General/ &nbsp&nbsp&nbsp&nbsp&nbsp generic &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp general secrets <br>
-		awsBackend/ &nbsp&nbsp aws &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp dynamic aws secrets <br>
-		Gene42dev/&nbsp&nbsp&nbsp&nbsp generic &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp secrets for Gene42 devs <br>
-		Gene42clients/ generic &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp secrets belonging to Gene42 clients <br>
-		PhenotipsDev/&nbsp generic &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp secrets phenotips developers <br>
-		sys/ &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp system &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp system endpoint used for control, ... <br>
-		Cubbybox/ &nbsp&nbsp&nbsp&nbsp cubbybox &nbsp&nbsp&nbsp&nbsp&nbsp per token secrets
-	</div>
-</div>
-<div id="authentication" class="step slide" data-x="-1480" data-y="2049" data-rotate="113.68421052631578" data-scale="1">
-	<h3>Authentication: Tokens</h3>
-	<ul>
-		<li>Vault has no sense of users, only tokens</li>
-		<li>Everybody authenticates with tokens</li>
-		<li><div class="code">
-			$ vault auth d08e2bd5-ffb0-440d-6486-b8f650ec8c0c
-		</div></li>
-		<li>Once authenticated, tokens are stored locally</li>
-		<li>Tokens are automatically included in commands that require permissions</li>
-		<li>Tokens are assigned permissions</li>
-	</ul>
-</div>
-<div id="auth-backend" class="step slide" data-x="-2187" data-y="1587" data-rotate="132.6315789473684" data-scale="1">
-	<h3>Authentication Backends</h3>
-	<ul>
-		<li> Other methods to generate tokens</li>
-		<li> Entry points to get tokens</li>
-    <ul class="example">
-      Examples
-      <li> Github backend </li>
-      <li> Userpass backend </li>
-      <li> Token backend </li>
-      <li> TLS certificates </li>
-      <li> many others </li>
-    </ul>
-	</ul>
-</div>
-<div id="userpass" class="step slide" data-x="-2706" data-y="921" data-rotate="151.57894736842104" data-scale="1">
-	<h3>Userpass</h3>
-  <ul>
-	  <li> Use a username and password to generate a token </li>
-  </ul>
-	<div class="code">
-		$ vault auth -methods=userpass \ <br>
-		&nbsp&nbsp&nbsp&nbsp	username=foo \ <br>
-		&nbsp&nbsp&nbsp&nbsp	password=bar <br>
-	</div>
-  <ul>
-    <li> Permissions are set to userpass entries instead of tokens</li>
-  </ul>
-</div>
-<div id="ttl" class="step slide" data-x="-2981" data-y="122" data-rotate="170.52631578947367" data-scale="1">
-	<h3>TTL & Max TTL</h3>
-	<ul>
-		<li> Time to Live </li>
-		<li> Tokens and secrets have ttl's </li>
-		<li> Static secrets don't depend on ttl's. They exist until deleted </li>
-		<li> Dynamic secrets and tokens are deleted at the end of their ttl </li>
-		<li> TTL's can be renewed until Max TTL is reached</li>
-	</ul>
-  <ul>
-    Example for userpass
-    <li> Userpass tokens with TTL = Max_TTL = 8 hours</li>
-    <li> Generated tokens last a "work day" </li>
-  </ul>
-</div>
-<div id="user-permissions" class="step slide" data-x="-2981" data-y="-722" data-rotate="189.4736842105263" data-scale="1">
-	<h3>User permissions</h3>
-  <ul class="two">
-    <li> Create </li>
-    <li> Read </li>
-    <li> Update </li>
-    <li> List </li>
-    <li> sudo </li>
-    <li> deny (default) </li>
-  </ul>
-  <div class="two code sample">
-    path "secret/*" { <br>
-    &nbsp&nbsp capabilities = ["read", "list", "create", "update"] <br>
-    } <br>
-    <br>
-    path "secret/foo" { <br>
-    &nbsp&nbsp capabilities = ["read"] <br>
-    } <br>
-    <br>
-    path "secret/super-secret" { <br>
-    &nbsp&nbsp capabilities = ["deny"] <br>
-    } <br>
+<div id="impress-base">
+  <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Inconsolata">
+  <div id="first-slide" class="step slide" data-x="-450" data-y="-300" data-rotate="0" data-scale="2">
+    <h1>Introduction to Vault for Users</h1>
+    <p class="small">A product created by Hashicorp</p>
   </div>
-</div>
-<div id="writing" class="step slide" data-x="-2706" data-y="-1521" data-rotate="208.42105263157893" data-scale="1">
-	<h3>Writing a secret</h3>
-	<div class="code">
-		$ vault write secret/devPassword \ <br>
-		&nbsp&nbsp&nbsp&nbsp username=admin \ <br>
-		&nbsp&nbsp&nbsp&nbsp password=Admin \ <br>
-		&nbsp&nbsp&nbsp&nbsp ...
-	</div>
-	<span class="plabel num1">1</span>
-	<span class="plabel num2">2</span>
-	<span class="plabel num3">3</span>
-	<span class="plabel num4">4</span>
-	<ol>
-		<li> Vault executable </li>
-		<li> Command (Write) </li>
-		<li> Path (Backend: secret)</li>
-		<li> Key value pairs </li>
-	</ol>
-</div>
-<div id="reading" class="step slide" data-x="-2187" data-y="-2187" data-rotate="227.36842105263156" data-scale="1">
-	<h3>Reading a secret</h3>
-	<div class="code">
-		$ vault read secret/devPassword
-	</div>
-	<span class="plabel num1">1</span>
-	<span class="plabel num2">2</span>
-	<span class="plabel num3">3</span>
-	<ol>
-		<li> Vault executable </li>
-		<li> Command (Read) </li>
-		<li> Path </li>
-	</ol>
-	<div class="bot code">
-		KEY &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp VALUE <br>
-		username &nbsp&nbsp&nbsp&nbsp&nbsp admin <br>
-		password &nbsp&nbsp&nbsp&nbsp&nbsp Admin <br>
-		... <br>
-	</div>
-</div>
-<div id="listing" class="step slide" data-x="-1480" data-y="-2649" data-rotate="246.3157894736842" data-scale="1">
-	<h3>Listing a secret</h3>
-	<div class="code">
-		$ vault list secret
-	</div>
-	<span class="plabel num1">1</span>
-	<span class="plabel num2">2</span>
-	<span class="plabel num3">3</span>
-	<ol>
-		<li>Vault executable </li>
-		<li>Command (List) </li>
-		<li>Path </li>
-	</ol>
-	<div class="bot code">
-		KEYS <br>
-		devPassword <br>
-		... <br>
-	</div>
-</div>
-<div id="deleting" class="step slide" data-x="-661" data-y="-2857" data-rotate="265.2631578947368" data-scale="1">
-	<h3>Deleting a secret</h3>
-	<div class="code">
-		$ vault delete secret/devPassword
-	</div>
-	<span class="plabel num1">1</span>
-	<span class="plabel num2">2</span>
-	<span class="plabel num3">3</span>
-	<ol>
-	</ol>
-	<div class="code" style="font-size:0.6em">
-		Success! Deleted 'secret/devPassword' if it existed.
-	</div>
-</div>
-<div class="step slide" data-x="179" data-y="-2787" data-rotate="284.2105263157895" data-scale="1">
-	<h3>Aside: GPG with Vault</h3>
-  <ul>
-    <li> Sending secrets outside of Vault </li>
-    <li> Keeping tokens and/or auth backend credentials (eg userpass) </li>
-  </ul>
-  <img class="cent" src="http://www.korecky.org/wp-content/GnuPG-Logo.png" style="">
-</div>
-<div class="step slide" data-x="953" data-y="-2448" data-rotate="303.1578947368421" data-scale="1">
-	<h3>Helpful Resources</h3>
-	<ul>
-		<li><a href="https://www.vaultproject.io">Vault Website</a></li>
-		<li><a href="https://github.com/hashicorp/vault">GitHub</a></li>
-		<li><a href="https://groups.google.com/forum/#!forum/vault-tool">Google Groups</a></li>
-		<li><a href="https://www.vaultproject.io/docs/index.html">Documentation</a></li>
-	</ul>
-</div>
-<div class="step slide" data-x="1574" data-y="-1876" data-rotate="322.1052631578947" data-scale="1">
-	<h3>Other solutions</h3>
-	<ul>
-		<li> Keywhiz by Square</li>
-		<li> PassBolt </li>
-		<li> Knox by Pinterest </li>
-		<li> Barbican by OpenStack </li>
-	</ul>
-</div>
-<div class="step slide credits" data-x="1976" data-y="-1133" data-rotate="341.05263157894734" data-scale="1">
-    <h2>Credits</h2>
+  <div id="hashicorp" class="step slide" data-x="2116" data-y="-299" data-rotate="0" data-scale="1">
+    <h3>Hashicorp</h3>
+    <img class="hashicorp" src="https://avatars2.githubusercontent.com/u/761456?v=3&s=400" style="width:200px;height:200px">
+    <img class="consul" src="https://www.consul.io/assets/images/logo_large-475cebb0.png" style="width:150px;height:150px">
+    <img class="vagrant" src="https://www.hashicorp.com/images/v2/logos/vagrant-logo-cfd74662.png" style="width:150px;height:150px">
+    <img class="terraform" src="https://www.hashicorp.com/images/blog/terraform/small-a17be924.png" style="width:150px;height:150px">
+    <div>
+      <ul>
+        <li> Consul </li>
+        <li> Vagrant </li>
+        <li> Terraform </li>
+      </ul>
+    </div>
+  </div>
+  <div id="vault-secrets" class="step slide" data-x="1976" data-y="533" data-rotate="18.94736842105263" data-scale="1">
+    <h3>Securely stores and controls access to:</h3>
     <ul>
-      <li>
-        Presentation by Ruxuan Li
-      </li>
-      <li>
-        <a href="http://bartaz.github.io/impress.js" target="_blank">impress.js</a> - Bartek Szopka
-      </li>
-      <li>
-        <a href="http://wmh.github.io/circular-slides-generator" target="_blank">Circular Slides Generator</a> - Hunter Wu
-      </li>
+      <li> tokens </li>
+      <li> passwords </li>
+      <li> certificates </li>
+      <li> API keys </li>
+    </ul>
+    <img class="secrets" src="https://tctechcrunch2011.files.wordpress.com/2015/04/graphic-key2x.png" style="width:486px;height:280px">
+  </div>
+  <div id="features" class="step slide" data-x="1574" data-y="1276" data-rotate="37.89473684210526" data-scale="1">
+    <h3>Features</h3>
+    <ul>
+      <li> Access controls </li>
+      <li> Audit logs </li>
+      <li> Encrypted storage </li>
+      <li> Break glass features </li>
+    </ul>
+    <img class="icon" src="https://www.vaultproject.io/assets/images/logo_large-0c8c5d37.png" style="width:400px">
+  </div>
+  <div id="vault-interface" class="step slide" data-x="953" data-y="1848" data-rotate="56.84210526315789" data-scale="1">
+    <h3>Interface: Command line</h3>
+    <div class="interface-container">
+      <img class="interface" src="http://blog.linoxide.com/wp-content/uploads/2015/04/vault.png">
+    </div>
+  </div>
+  <div id="backends" class="step slide" data-x="179" data-y="2187" data-rotate="75.78947368421052" data-scale="1">
+    <h3>Secrets Backends</h3>
+    <ul>
+      <li> Are "roots" of a filesystem </li>
+      <li> Different types of backends for different types of secrets</li>
+      <li> Types: generic, aws, cubbyhole, and more </li>
+    </ul>
+    <div class="code">
+      $ vault mounts
+    </div>
+  </div>
+  <div id="mounts-example" class="step slide" data-x="-661" data-y="2257" data-rotate="94.73684210526315" data-scale="1">
+    <div class="full code">
+      $ vault mounts <br>
+      PATH &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp TYPE &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp DESCRIPTION
+      <br><br>
+      General/ &nbsp&nbsp&nbsp&nbsp&nbsp generic &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp general secrets <br>
+      awsBackend/ &nbsp&nbsp aws &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp dynamic aws secrets <br>
+      Gene42dev/&nbsp&nbsp&nbsp&nbsp generic &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp secrets for Gene42 devs <br>
+      Gene42clients/ generic &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp secrets belonging to Gene42 clients <br>
+      PhenotipsDev/&nbsp generic &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp secrets phenotips developers <br>
+      sys/ &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp system &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp system endpoint used for control, ... <br>
+      Cubbybox/ &nbsp&nbsp&nbsp&nbsp cubbybox &nbsp&nbsp&nbsp&nbsp&nbsp per token secrets
+    </div>
+  </div>
+  <div id="authentication" class="step slide" data-x="-1480" data-y="2049" data-rotate="113.68421052631578" data-scale="1">
+    <h3>Authentication: Tokens</h3>
+    <ul>
+      <li>Vault has no sense of users, only tokens</li>
+      <li>Everybody authenticates with tokens</li>
+      <li><div class="code">
+        $ vault auth d08e2bd5-ffb0-440d-6486-b8f650ec8c0c
+      </div></li>
+      <li>Once authenticated, tokens are stored locally</li>
+      <li>Tokens are automatically included in commands that require permissions</li>
+      <li>Tokens are assigned permissions</li>
     </ul>
   </div>
-<div class="step" data-x="-450" data-y="-300" data-scale="8"></div>
+  <div id="auth-backend" class="step slide" data-x="-2187" data-y="1587" data-rotate="132.6315789473684" data-scale="1">
+    <h3>Authentication Backends</h3>
+    <ul>
+      <li> Other methods to generate tokens</li>
+      <li> Entry points to get tokens</li>
+      <ul class="example">
+        Examples
+        <li> Github backend </li>
+        <li> Userpass backend </li>
+        <li> Token backend </li>
+        <li> TLS certificates </li>
+        <li> many others </li>
+      </ul>
+    </ul>
+  </div>
+  <div id="userpass" class="step slide" data-x="-2706" data-y="921" data-rotate="151.57894736842104" data-scale="1">
+    <h3>Userpass</h3>
+    <ul>
+      <li> Use a username and password to generate a token </li>
+    </ul>
+    <div class="code">
+      $ vault auth -methods=userpass \ <br>
+      &nbsp&nbsp&nbsp&nbsp	username=foo \ <br>
+      &nbsp&nbsp&nbsp&nbsp	password=bar <br>
+    </div>
+    <ul>
+      <li> Permissions are set to userpass entries instead of tokens</li>
+    </ul>
+  </div>
+  <div id="ttl" class="step slide" data-x="-2981" data-y="122" data-rotate="170.52631578947367" data-scale="1">
+    <h3>TTL & Max TTL</h3>
+    <ul>
+      <li> Time to Live </li>
+      <li> Tokens and secrets have ttl's </li>
+      <li> Static secrets don't depend on ttl's. They exist until deleted </li>
+      <li> Dynamic secrets and tokens are deleted at the end of their ttl </li>
+      <li> TTL's can be renewed until Max TTL is reached</li>
+    </ul>
+    <ul>
+      Example for userpass
+      <li> Userpass tokens with TTL = Max_TTL = 8 hours</li>
+      <li> Generated tokens last a "work day" </li>
+    </ul>
+  </div>
+  <div id="user-permissions" class="step slide" data-x="-2981" data-y="-722" data-rotate="189.4736842105263" data-scale="1">
+    <h3>User permissions</h3>
+    <ul class="two">
+      <li> Create </li>
+      <li> Read </li>
+      <li> Update </li>
+      <li> List </li>
+      <li> sudo </li>
+      <li> deny (default) </li>
+    </ul>
+    <div class="two code sample">
+      path "secret/*" { <br>
+      &nbsp&nbsp capabilities = ["read", "list", "create", "update"] <br>
+      } <br>
+      <br>
+      path "secret/foo" { <br>
+      &nbsp&nbsp capabilities = ["read"] <br>
+      } <br>
+      <br>
+      path "secret/super-secret" { <br>
+      &nbsp&nbsp capabilities = ["deny"] <br>
+      } <br>
+    </div>
+  </div>
+  <div id="writing" class="step slide" data-x="-2706" data-y="-1521" data-rotate="208.42105263157893" data-scale="1">
+    <h3>Writing a secret</h3>
+    <div class="code">
+      $ vault write secret/devPassword \ <br>
+      &nbsp&nbsp&nbsp&nbsp username=admin \ <br>
+      &nbsp&nbsp&nbsp&nbsp password=Admin \ <br>
+      &nbsp&nbsp&nbsp&nbsp ...
+    </div>
+    <span class="plabel num1">1</span>
+    <span class="plabel num2">2</span>
+    <span class="plabel num3">3</span>
+    <span class="plabel num4">4</span>
+    <ol>
+      <li> Vault executable </li>
+      <li> Command (Write) </li>
+      <li> Path (Backend: secret)</li>
+      <li> Key value pairs </li>
+    </ol>
+  </div>
+  <div id="reading" class="step slide" data-x="-2187" data-y="-2187" data-rotate="227.36842105263156" data-scale="1">
+    <h3>Reading a secret</h3>
+    <div class="code">
+      $ vault read secret/devPassword
+    </div>
+    <span class="plabel num1">1</span>
+    <span class="plabel num2">2</span>
+    <span class="plabel num3">3</span>
+    <ol>
+      <li> Vault executable </li>
+      <li> Command (Read) </li>
+      <li> Path </li>
+    </ol>
+    <div class="bot code">
+      KEY &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp VALUE <br>
+      username &nbsp&nbsp&nbsp&nbsp&nbsp admin <br>
+      password &nbsp&nbsp&nbsp&nbsp&nbsp Admin <br>
+      ... <br>
+    </div>
+  </div>
+  <div id="listing" class="step slide" data-x="-1480" data-y="-2649" data-rotate="246.3157894736842" data-scale="1">
+    <h3>Listing a secret</h3>
+    <div class="code">
+      $ vault list secret
+    </div>
+    <span class="plabel num1">1</span>
+    <span class="plabel num2">2</span>
+    <span class="plabel num3">3</span>
+    <ol>
+      <li>Vault executable </li>
+      <li>Command (List) </li>
+      <li>Path </li>
+    </ol>
+    <div class="bot code">
+      KEYS <br>
+      devPassword <br>
+      ... <br>
+    </div>
+  </div>
+  <div id="deleting" class="step slide" data-x="-661" data-y="-2857" data-rotate="265.2631578947368" data-scale="1">
+    <h3>Deleting a secret</h3>
+    <div class="code">
+      $ vault delete secret/devPassword
+    </div>
+    <span class="plabel num1">1</span>
+    <span class="plabel num2">2</span>
+    <span class="plabel num3">3</span>
+    <ol>
+    </ol>
+    <div class="code" style="font-size:0.6em">
+      Success! Deleted 'secret/devPassword' if it existed.
+    </div>
+  </div>
+  <div class="step slide" data-x="179" data-y="-2787" data-rotate="284.2105263157895" data-scale="1">
+    <h3>Aside: GPG with Vault</h3>
+    <ul>
+      <li> Sending secrets outside of Vault </li>
+      <li> Keeping tokens and/or auth backend credentials (eg userpass) </li>
+    </ul>
+    <img class="cent" src="http://www.korecky.org/wp-content/GnuPG-Logo.png" style="">
+  </div>
+  <div class="step slide" data-x="953" data-y="-2448" data-rotate="303.1578947368421" data-scale="1">
+    <h3>Helpful Resources</h3>
+    <ul>
+      <li><a href="https://www.vaultproject.io">Vault Website</a></li>
+      <li><a href="https://github.com/hashicorp/vault">GitHub</a></li>
+      <li><a href="https://groups.google.com/forum/#!forum/vault-tool">Google Groups</a></li>
+      <li><a href="https://www.vaultproject.io/docs/index.html">Documentation</a></li>
+    </ul>
+  </div>
+  <div class="step slide" data-x="1574" data-y="-1876" data-rotate="322.1052631578947" data-scale="1">
+    <h3>Other solutions</h3>
+    <ul>
+      <li> Keywhiz by Square</li>
+      <li> PassBolt </li>
+      <li> Knox by Pinterest </li>
+      <li> Barbican by OpenStack </li>
+    </ul>
+  </div>
+  <div class="step slide credits" data-x="1976" data-y="-1133" data-rotate="341.05263157894734" data-scale="1">
+      <h2>Credits</h2>
+      <ul>
+        <li>
+          Presentation by Ruxuan Li
+        </li>
+        <li>
+          <a href="http://bartaz.github.io/impress.js" target="_blank">impress.js</a> - Bartek Szopka
+        </li>
+        <li>
+          <a href="http://wmh.github.io/circular-slides-generator" target="_blank">Circular Slides Generator</a> - Hunter Wu
+        </li>
+      </ul>
+    </div>
+  <div class="step" data-x="-450" data-y="-300" data-scale="8"></div>
+</div>
