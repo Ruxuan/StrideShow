@@ -43,7 +43,7 @@ var _nunjucks = require('nunjucks');
 	});
 
 // ********************************************************
-// TODO: How to load project's models?
+// TODO: database setup
 
 // ********************************************************
 // TODO: Authentication
@@ -58,8 +58,8 @@ var _nunjucks = require('nunjucks');
 
 //*********************************************************
 // Pass information
-var webpack = require('webpack');
-var config = require('../tools/webpack.config.dev.js');
+var webpack  = require('webpack');
+var config   = require('../tools/webpack.config.dev.js');
 var compiler = webpack(config);
 _app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,

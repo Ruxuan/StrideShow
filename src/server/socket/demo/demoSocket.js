@@ -108,6 +108,7 @@ module.exports = function(app, io) {
 
     // Socket on active project
     socket.on('mobileActiveProject', function(data) {
+      // TODO: mobileConnections[socket.id] is sometimes undefined. Why?
       mobileConnections[socket.id].emit('mobileActiveProject', data);
     });
 

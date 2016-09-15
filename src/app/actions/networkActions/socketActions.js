@@ -11,16 +11,16 @@ export function socketInit() {
 
     // Demo Room Key
     socket.on('demoRoomKey', function (data) {
-      console.log('Received private room: ' + data);
+      console.log('Received private room key: ' + data);
       dispatch(socketReceiveRoomKey(data));
     });
 
     // Retrieve browser name
-    var featureBrowser = featureBrowserDetection();
+    var featureBrowser   = featureBrowserDetection();
     // Retrieve browser version
     var userAgentBrowser = userAgentBrowserDetection();
     // Retrieve computer info
-    var navigatorInfo = fullNavigatorInfo();
+    var navigatorInfo    = fullNavigatorInfo();
 
     // Dispatch computer info
     dispatch(computerInfo(featureBrowser, userAgentBrowser.version, navigatorInfo.os));

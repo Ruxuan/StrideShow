@@ -42,8 +42,10 @@ _router.get('/*', function(req, res) {
 		return {
 			id: element.meta_data.id,
 			selected: false
-		}
+		};
 	});
+
+  // UI State
 	var uiState = {
 		UIprojectGrid: UIprojectGrid,
 		UIactiveProject: 'deselect'
@@ -65,7 +67,7 @@ _router.get('/*', function(req, res) {
 	// Render
 	res.render('demo/demo', {
 		data: renderData,
-	 	devServer: 'http://d9f67d82.ngrok.io/client'
+	 	devServer: 'http://b7f26824.ngrok.io/client'
 	});
 });
 

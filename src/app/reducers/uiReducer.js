@@ -35,7 +35,7 @@ const UIactiveProjectReducer = (state, action) => {
 const uiReducer = (state={}, action) => {
   switch(action.type) {
     case actions.SELECT_PROJECT:
-      var newUIprojectGrid = UIprojectGridReducer(state.UIprojectGrid, action);
+      var newUIprojectGrid   = UIprojectGridReducer(state.UIprojectGrid, action);
       var newUIactiveProject = UIactiveProjectReducer(state.UIactiveProject, action);
 
       return {
