@@ -85,6 +85,7 @@ module.exports = function(app, io) {
 
       // Check if socket exists
       if (clientConnections[data.roomKey] === undefined) {
+        // TODO: let mobile know room doesn't exist w/ callback
         console.log("Mobile: Attempt to request a non-existent room");
         return;
       }

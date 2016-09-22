@@ -67,7 +67,7 @@ _router.get('/*', function(req, res) {
 	// Render
 	res.render('demo/demo', {
 		data: renderData,
-	 	devServer: 'http://b7f26824.ngrok.io/client'
+	 	devServer: 'http://strideshow.me/client'
 	});
 });
 
