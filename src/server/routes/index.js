@@ -18,7 +18,7 @@ _router.get('/', function(req, res) {
 
 //_router.use('/', require('./products'));
 _router.use('/demo', require('./demo/demo.js'));
-//_router.use('/', require('./smartPhoneApps'));
+_router.use('/app', require('./app/app.js'));
 //_router.use('/', require('./pricing'));
 //_router.use('/', require('./contact'));
 _router.use('/about', require('./about/about.js'));
