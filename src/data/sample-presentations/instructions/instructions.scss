@@ -1,5 +1,13 @@
+#impress-container {
+  background-color: #3A3A3A;
+}
+
 .slide {
 	height: 600px;
 	width: 800px;
 	text-align: center;
+
+  p {
+    font-size: 26px;
+  }
 }
