@@ -35,34 +35,39 @@ var IMPRESS_STATE_DIR = path.resolve("data/impressState.json");
 //var ReactDOMServer = require('react-dom/server');
 
 _router.get('/*', function(req, res) {
-	var sample = JSON.parse(fs.readFileSync(TARGET_DIRECTORY, "utf-8"));
+  try {
+    var sample = JSON.parse(fs.readFileSync(TARGET_DIRECTORY, "utf-8"));
 
-	// Compute ui state
-	var UIprojectGrid = sample.map((element, index) => {
-		return {
-			id: element.meta_data.id,
-			selected: false
-		};
-	});
+    // Compute ui state
+    var UIprojectGrid = sample.map((element, index) => {
+      return {
+        id: element.meta_data.id,
+        selected: false
+      };
+    });
 
-  // UI State
-	var uiState = {
-		UIprojectGrid: UIprojectGrid,
-		UIactiveProject: 'deselect'
-	};
+    // UI State
+    var uiState = {
+      UIprojectGrid: UIprojectGrid,
+      UIactiveProject: 'deselect'
+    };
 
-	// Get network state
-	var networkState = JSON.parse(fs.readFileSync(NETWORK_STATE_DIR, "utf-8"));
-  // Get impress state
-  var impressState = JSON.parse(fs.readFileSync(IMPRESS_STATE_DIR, "utf-8"));
+    // Get network state
+    var networkState = JSON.parse(fs.readFileSync(NETWORK_STATE_DIR, "utf-8"));
+    // Get impress state
+    var impressState = JSON.parse(fs.readFileSync(IMPRESS_STATE_DIR, "utf-8"));
 
-	// Put together render data
-	var renderData = JSON.stringify({
-		projects: sample,
-		uiState: uiState,
-		networkState: networkState,
-    impressState: impressState
-	});
+    // Put together render data
+    var renderData = JSON.stringify({
+      projects: sample,
+      uiState: uiState,
+      networkState: networkState,
+      impressState: impressState
+    });
+  } catch (e) {
+    console.log(e.message);
+    pJson(PRESENTATION_FILES, TARGET_DIRECTORY);
+  }
 
 	// Render
 	res.render('demo/demo', {
