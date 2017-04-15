@@ -26,10 +26,10 @@ var TARGET_DIRECTORY = path.resolve("src/data/sample-presentations/sample-presen
 _router.get('/', function(req, res) {
   var sample;
   	try {
-    	sample = JSON.parse(fs.readFileSync(TARGET_DIRECTORY, "utf-8"));
+		sample = JSON.parse(fs.readFileSync(TARGET_DIRECTORY, "utf-8"));
   	} catch (e) {
-    	console.log(e.message);
-    	pJson(PRESENTATION_FILES, TARGET_DIRECTORY);
+		console.log(e.message);
+		pJson(PRESENTATION_FILES, TARGET_DIRECTORY);
   	}
 	res.json(sample);
 });
