@@ -1,2 +1,4 @@
 # StrideShow
-Next generation slide show presentation web application
+Slideshow application for MissionControl. Features voice command and an internal laser pointer.
+
+Run with '$ npm start'
