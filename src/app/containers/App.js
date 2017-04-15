@@ -11,7 +11,7 @@ class App extends React.Component {
     return (
       <div className="container-fluid">
         <h1>
-          <Link to="/demo">StrideShow Dashboard</Link>
+          <Link to="/">StrideShow Dashboard</Link>
         </h1>
         { React.cloneElement(this.props.children, this.props) }
       </div>

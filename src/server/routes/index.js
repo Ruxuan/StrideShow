@@ -6,24 +6,13 @@ var _router  = _express.Router();
 _router.use('/', require('./middleware'));
 
 //*************************************************
-// Paths
-
 // define the home page route
-_router.get('/', function(req, res) {
-	res.render('index');
-});
-
 //*************************************************
 // Router imports
 
-//_router.use('/', require('./products'));
-_router.use('/demo', require('./demo/demo.js'));
-_router.use('/app', require('./app/app.js'));
-//_router.use('/', require('./pricing'));
-//_router.use('/', require('./contact'));
-//_router.use('/about', require('./about/about.js'));
 _router.use('/login', require('./login/login.js'));
-_router.use('/api', require('./api/api'));
+_router.use('/api', require('./api/api.js'));
+_router.get('/*', require("./demo/demo.js"));
 
 //*************************************************
 // Router export

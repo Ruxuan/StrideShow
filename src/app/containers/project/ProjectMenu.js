@@ -28,7 +28,7 @@ class ProjectMenu extends React.Component {
           <span onClick={this.sorry}> Shareable Link </span>
           <span onClick={this.sorry}> Share Project </span>
 
-          <Link to={`/demo/slideshow/${activeProject}`}>
+          <Link to={`/slideshow/${activeProject}`}>
             <span> View </span>
           </Link>
 

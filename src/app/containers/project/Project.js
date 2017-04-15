@@ -39,7 +39,7 @@ class Project extends React.Component {
 
     return (
       <li onClick={ this.handleOnClick }>
-        <Link to={`/demo/slideshow/${index}`}>
+        <Link to={`/slideshow/${index}`}>
           <div className={projectBoxClass} onClick={this.handleOnProjectClick}>
             {index} : {project.meta_data.title}
           </div>

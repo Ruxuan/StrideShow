@@ -13,9 +13,9 @@ import store, { history } from './store/store';
 const router = (
   <Provider store={store}>
    <Router history={history}>
-     <Route path="/demo" component={ App }>
+     <Route path="/" component={ App }>
        <IndexRoute component={ Dashboard } />
-       <Route path="/demo/slideshow/:index" component={ Slideshow } />
+       <Route path="/slideshow/:index" component={ Slideshow } />
      </Route>
    </Router>
   </Provider>
