@@ -52,7 +52,6 @@ var _nunjucks = require('nunjucks');
 // expressJWT reactstarterkit
 //*********************************************************
 // TODO: the following stuff
-// graphQL ? reactstarterkit
 // Register server-side rendering middleware reactstarterkit
 // Error handling from reactstarterkit
 

@@ -21,7 +21,7 @@ _router.use('/demo', require('./demo/demo.js'));
 _router.use('/app', require('./app/app.js'));
 //_router.use('/', require('./pricing'));
 //_router.use('/', require('./contact'));
-_router.use('/about', require('./about/about.js'));
+//_router.use('/about', require('./about/about.js'));
 _router.use('/login', require('./login/login.js'));
 _router.use('/api', require('./api/api'));
 

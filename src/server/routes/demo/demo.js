@@ -12,21 +12,21 @@ var path     = require('path');
 
 // Compile sample presentations into one json file
 var PRESENTATION_FILES = [
-	"data/sample-presentations/universe/universe.json",
-	"data/sample-presentations/global-warming/global-warming.json",
-	"data/sample-presentations/instructions/instructions.json",
-	"data/sample-presentations/impress-intro/impress-intro.json",
-  "data/sample-presentations/vault/vault.json"
+	"src/data/sample-presentations/universe/universe.json",
+	"src/data/sample-presentations/global-warming/global-warming.json",
+	"src/data/sample-presentations/instructions/instructions.json",
+	"src/data/sample-presentations/impress-intro/impress-intro.json",
+	"src/data/sample-presentations/vault/vault.json"
 	].map(pathName => path.resolve(pathName));
-var TARGET_DIRECTORY   = path.resolve("data/sample-presentations/sample-presentations.json");
+var TARGET_DIRECTORY = path.resolve("src/data/sample-presentations/sample-presentations.json");
 // Compile presentations Function
 pJson(PRESENTATION_FILES, TARGET_DIRECTORY);
 
 // Network state
-var NETWORK_STATE_DIR = path.resolve("data/networkState.json");
+var NETWORK_STATE_DIR = path.resolve("src/data/networkState.json");
 
 // Impress state
-var IMPRESS_STATE_DIR = path.resolve("data/impressState.json");
+var IMPRESS_STATE_DIR = path.resolve("src/data/impressState.json");
 //*************************************************
 // Paths
 
@@ -72,7 +72,7 @@ _router.get('/*', function(req, res) {
 	// Render
 	res.render('demo/demo', {
 		data: renderData,
-	 	devServer: 'http://strideshow.me/client'
+		devServer: "localhost:8080/client"
 	});
 });
 

@@ -11,25 +11,26 @@ var pJson    = require('json-packager');
 //*************************************************
 
 var PRESENTATION_FILES = [
-  "data/sample-presentations/universe/universe.json",
-  "data/sample-presentations/global-warming/global-warming.json",
-  "data/sample-presentations/instructions/instructions.json",
-  "data/sample-presentations/impress-intro/impress-intro.json",
-  "data/sample-presentations/vault/vault.json"
+  "src/data/sample-presentations/universe/universe.json",
+  "src/data/sample-presentations/global-warming/global-warming.json",
+  "src/data/sample-presentations/instructions/instructions.json",
+  "src/data/sample-presentations/impress-intro/impress-intro.json",
+  "src/data/sample-presentations/vault/vault.json"
 ].map(pathName => path.resolve(pathName));
 // Compile sample presentations into one json file
-var TARGET_DIRECTORY   = path.resolve("data/sample-presentations/sample-presentations.json");
+var TARGET_DIRECTORY = path.resolve("src/data/sample-presentations/sample-presentations.json");
 
 //*************************************************
 // Paths
 
 _router.get('/', function(req, res) {
-  try {
-    var sample = JSON.parse(fs.readFileSync(TARGET_DIRECTORY, "utf-8"));
-  } catch (e) {
-    console.log(e.message);
-    pJson(PRESENTATION_FILES, TARGET_DIRECTORY);
-  }
+  var sample;
+  	try {
+    	sample = JSON.parse(fs.readFileSync(TARGET_DIRECTORY, "utf-8"));
+  	} catch (e) {
+    	console.log(e.message);
+    	pJson(PRESENTATION_FILES, TARGET_DIRECTORY);
+  	}
 	res.json(sample);
 });
 

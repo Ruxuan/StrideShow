@@ -5,7 +5,7 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     'webpack-hot-middleware/client',
-    '../src/app/strideshow.js'
+    './src/app/strideshow.js'
   ],
   output: {
     path: path.join(__dirname, '../src/public/js'),
